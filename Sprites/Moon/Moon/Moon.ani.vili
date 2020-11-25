@@ -1,0 +1,33 @@
+Meta:
+    name: "Moon"
+    clock: 0.08
+    mode: "Loop"
+
+Images:
+    images: [
+        "moon0.png",
+        "moon1.png",
+        "moon2.png",
+        "moon3.png",
+        "moon4.png",
+        "moon5.png",
+        "moon6.png",
+        "moon7.png",
+        "moon8.png",
+        "moon9.png",
+        "moon10.png",
+        "moon11.png",
+        "moon12.png",
+        "moon13.png"
+    ]
+
+Groups:
+    main:
+        content: [
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main" }
+    ]

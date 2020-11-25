@@ -1,0 +1,28 @@
+Meta:
+    name: "fall_right"
+    clock: 0.2
+    mode: "OneTime"
+
+Images:
+    images: [
+        "PERSO_jump0_1.png",
+        "PERSO_jump0.png",
+        "PERSO_jump0bis.png",
+        "PERSO_jump0bis2.png"
+    ]
+
+Groups:
+    begin:
+        content: [
+            0
+        ]
+    main:
+        content: [
+            1, 2, 3
+        ]
+
+Animation:
+    code: [
+        play_group { group:"begin" },
+        play_group { group:"main", repeat: 1000 }
+    ]

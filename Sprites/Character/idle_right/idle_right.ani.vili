@@ -1,0 +1,22 @@
+Meta:
+    name: "idle_right"
+    clock: 0.2
+    mode: "Loop"
+
+Images:
+    images: [
+        "PERSO_standing0.png",
+        "PERSO_standing1.png",
+        "PERSO_standing2.png"
+    ]
+
+Groups:
+    main:
+        content: [
+            0, 1, 2, 1
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main" }
+    ]

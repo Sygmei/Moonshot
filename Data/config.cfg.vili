@@ -1,0 +1,32 @@
+Framerate:
+    framerateLimit: true
+    framerateTarget: 144
+    vsync: true
+
+Window:
+    Game:
+        fullscreen: true
+
+GameConfig:
+    antiAliasing: true
+
+Input:
+    game:
+        CameraLeft: "Hold: Left"
+        CameraRight: "Hold: Right"
+        CameraUp: "Hold: Up"
+        CameraDown: "Hold: Down"
+        CameraZoom: "Pressed: MouseWheelUp"
+        CameraUnzoom: "Pressed: MouseWheelDown"
+        MoveSpriteTo: "Pressed: RMB"
+        UseTile: "Pressed: MMB"
+        Left: "Hold: Q"
+        Right: "Hold: D"
+        Jump: "Pressed: Space"
+        Shoot: "Pressed: LMB"
+        CreateMoon: "Pressed: RMB"
+        ToggleCameraSmoothing: "Pressed: F2"
+
+Debug:
+    Logging:
+        level: debug

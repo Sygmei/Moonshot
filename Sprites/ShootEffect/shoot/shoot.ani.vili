@@ -1,0 +1,26 @@
+Meta:
+    name: "shoot"
+    clock: 0.05
+    mode: "Loop"
+
+Images:
+    images: [
+        "effect0.png",
+        "effect1.png",
+        "effect2.png",
+        "effect3.png",
+        "effect4.png",
+        "effect5.png",
+        "effect6.png"
+    ]
+
+Groups:
+    main:
+        content: [
+            0, 1, 2, 3, 4, 5, 6
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main" }
+    ]

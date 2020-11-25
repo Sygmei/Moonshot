@@ -1,0 +1,28 @@
+Meta:
+    name: "run_right"
+    clock: 0.07
+    mode: "Loop"
+
+Images:
+    images: [
+        "PERSO_run0.png",
+        "PERSO_run0_1.png",
+        "PERSO_run1.png",
+        "PERSO_run1_2.png",
+        "PERSO_run2.png",
+        "PERSO_run0_3.png",
+        "PERSO_run3.png",
+        "PERSO_run3_4.png",
+        "PERSO_run4.png"
+    ]
+
+Groups:
+    main:
+        content: [
+            0, 1, 2, 3, 4, 3, 2, 1, 0, 5, 6, 7, 6, 5
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main" }
+    ]

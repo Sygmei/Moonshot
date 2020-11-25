@@ -1,0 +1,28 @@
+Meta:
+    name: "fall_left"
+    clock: 0.2
+    mode: "OneTime"
+
+Images:
+    images: [
+        "jump0_1_left.png",
+        "jump0_left.png",
+        "jump0bis_left.png",
+        "jump0bis2_left.png"
+    ]
+
+Groups:
+    begin:
+        content: [
+            0
+        ]
+    main:
+        content: [
+            1, 2, 3
+        ]
+
+Animation:
+    code: [
+        play_group { group:"begin" },
+        play_group { group:"main", repeat: 1000 }
+    ]

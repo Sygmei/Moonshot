@@ -1,0 +1,19 @@
+Moon:
+    Animator:
+        path: "Sprites/Moon"
+        default: "Moon"
+    Sprite:
+        rect:
+            x:0.0
+            y:0.0
+            width:0.15
+            height:0.15
+            unit:"SceneUnits"
+        zdepth: 0
+        layer: 0
+        antiAliasing: true
+    Script:
+        sources:[
+            "Data/GameObjects/Moon/Moon.lua",
+            "Scripts/Vector2.lua"
+            ]

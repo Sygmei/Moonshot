@@ -1,0 +1,25 @@
+Character:
+    Animator:
+        path: "Sprites/Character"
+        default: "idle_right"
+    Collider:
+        unit: SceneUnits
+        points:[
+            {x: 0,     y: 0},
+            {x: 0.237, y: 0},
+            {x: 0.237, y: 0.41},
+            {x: 0,     y: 0.41}
+        ]
+    Sprite:
+        rect:
+            x: 0
+            y: 0
+            width: 0.26
+            height: 0.42
+            unit: SceneUnits
+        layer: 1
+        zdepth: 0
+        antiAliasing: true
+    Script:
+        priority:0
+        sources:["Data/GameObjects/Character/Character.lua"]

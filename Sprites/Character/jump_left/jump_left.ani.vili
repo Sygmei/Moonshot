@@ -1,0 +1,28 @@
+Meta:
+    name: "jump_left"
+    clock: 0.2
+    mode: "OneTime"
+
+Images:
+    images: [
+        "jump0_left.png",
+        "jump0_1_left.png",
+        "jump1_left.png",
+        "jump1bis_left.png",
+        "jump1bis2_left.png"
+    ]
+
+Groups:
+    begin:
+        content: [
+            0, 1
+        ]
+    main:
+        content: [
+            2, 3, 4
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main", repeat: 1000 }
+    ]

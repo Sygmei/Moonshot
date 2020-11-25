@@ -1,0 +1,22 @@
+{ "columns":4,
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
+    },
+ "image":"../Sprites/Spritesheets/front_bridge.png",
+ "imageheight":800,
+ "imagewidth":800,
+ "margin":0,
+ "name":"front_bridge",
+ "spacing":0,
+ "tilecount":16,
+ "tiledversion":"1.4.2",
+ "tileheight":200,
+ "tilewidth":200,
+ "type":"tileset",
+ "version":1.4
+}

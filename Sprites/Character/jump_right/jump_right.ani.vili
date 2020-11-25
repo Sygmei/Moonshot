@@ -1,0 +1,30 @@
+Meta:
+    name: "jump_right"
+    clock: 0.1
+    mode: "OneTime"
+
+Images:
+    images: [
+        "PERSO_jump0.png",
+        "PERSO_jump0_1.png",
+        "PERSO_jump1.png",
+        "PERSO_jump1bis.png",
+        "PERSO_jump1bis2.png"
+    ]
+
+Groups:
+    begin:
+        clock: 0.05
+        content: [
+            0, 1
+        ]
+    main:
+        clock: 0.2
+        content: [
+            2, 3, 4
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main", repeat: 1000 }
+    ]

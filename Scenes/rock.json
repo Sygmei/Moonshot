@@ -1,0 +1,14 @@
+{ "columns":3,
+ "image":"../Sprites/Spritesheets/rock.png",
+ "imageheight":600,
+ "imagewidth":600,
+ "margin":0,
+ "name":"rock",
+ "spacing":0,
+ "tilecount":9,
+ "tiledversion":"1.4.2",
+ "tileheight":200,
+ "tilewidth":200,
+ "type":"tileset",
+ "version":1.4
+}

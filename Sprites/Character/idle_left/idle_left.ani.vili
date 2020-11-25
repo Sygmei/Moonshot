@@ -1,0 +1,22 @@
+Meta:
+    name: "idle_left"
+    clock: 0.2
+    mode: "Loop"
+
+Images:
+    images: [
+        "idle0_left.png",
+        "idle1_left.png",
+        "idle2_left.png"
+    ]
+
+Groups:
+    main:
+        content: [
+            0, 1, 2, 1
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main" }
+    ]
