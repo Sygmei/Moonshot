@@ -52,7 +52,7 @@ function setClamps()
 end
 
 function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
-    Object.ost = Engine.Audio:load(obe.System.Path("D:/Assets/githubjam2020/OST/Moonshot_OST_WIP_1.mp3"), obe.Audio.LoadPolicy.Stream);
+    -- Object.ost = Engine.Audio:load(obe.System.Path("D:/Assets/githubjam2020/OST/Moonshot_OST_WIP_1.mp3"), obe.Audio.LoadPolicy.Stream);
     -- Object.ost:play();
     Object.current_scale = 1;
     Object.target_scale = 1;

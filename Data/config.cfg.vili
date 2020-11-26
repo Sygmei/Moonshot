@@ -22,7 +22,7 @@ Input:
         UseTile: "Pressed: MMB"
         Left: "Hold: Q"
         Right: "Hold: D"
-        Jump: "Pressed: Space"
+        Jump: "Hold: Space"
         Shoot: "Pressed: LMB"
         CreateMoon: "Pressed: RMB"
         ToggleCameraSmoothing: "Pressed: F2"

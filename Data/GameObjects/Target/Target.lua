@@ -1,4 +1,4 @@
-function Local.Init(x, y, cluster, hits)
+function Local.Init(x, y, cluster, hits, rotation)
     Object.cluster = Engine.Scene:getGameObject(cluster);
     Object.index = Object.cluster:addTarget(Object);
     print("Target", x, y)
@@ -6,6 +6,13 @@ function Local.Init(x, y, cluster, hits)
     This.Sprite:setPosition(obe.Transform.UnitVector(0, 0), obe.Transform.Referential.Center);
     local base_position = obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels);
     base_position = base_position + obe.Transform.UnitVector(sprite_size.x / 2, -sprite_size.y / 2);
+    if rotation then
+        This.Sprite:setRotation(-rotation, obe.Transform.Referential.TopLeft);
+        if rotation == 90 then
+            This.Sprite:move(obe.Transform.UnitVector(0, This.Sprite:getSize().y));
+        end
+    end
+    This.Collider:setPositionFromCentroid(This.Sprite:getPosition(obe.Transform.Referential.Center));
     This.SceneNode:setPosition(base_position);
     Object.hits = hits or 1;
     Object.currentHit = 0;

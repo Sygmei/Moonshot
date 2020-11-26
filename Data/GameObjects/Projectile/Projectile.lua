@@ -13,8 +13,11 @@ local moon;
 local lifetime = 0;
 local MAX_LIFETIME = 3;
 
-function Local.Init(x, y, vecInit)
+Object.inactive = true;
+
+function Local.Init(x, y, vecInit, through_bridge)
     Object.inactive = false;
+    Object.through_bridge = through_bridge or false;
     targets = {}
     discoverTargets()
     center = {x = x, y = y}
@@ -33,6 +36,12 @@ function Local.Init(x, y, vecInit)
     if vecUnit ~= 0 then
         checkAttraction()
         checkOrbit()
+    end
+
+    This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Character");
+    This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Projectile");
+    if through_bridge then
+        This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Bridge");
     end
 end
 
@@ -137,6 +146,11 @@ function Event.Game.Update(event)
             Object.inactive = true;
             return
         end
+    end
+    local collisions = This.Collider:doesCollide(obe.Transform.UnitVector(0, 0)).colliders;
+    if #collisions ~= 0 then
+        This.Sprite:setVisible(false);
+        Object.inactive = true;
     end
     This.SceneNode:setPosition(obe.Transform.UnitVector(center.x, center.y, obe.Transform.Units.ScenePixels), obe.Transform.Referential.Center)
 end

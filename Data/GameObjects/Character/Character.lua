@@ -25,6 +25,12 @@ function Object:DiscoverSpikes()
     end
 end
 
+function Object:DiscoverLoots()
+    for k, v in pairs(Engine.Scene:getAllGameObjects("Loot")) do
+        table.insert(Object.loots, v);
+    end
+end
+
 -- Local Init Function
 function Local.Init(x, y)
     Object.sprite_size = This.Sprite:getSize();
@@ -66,6 +72,9 @@ function Local.Init(x, y)
 
     Object.spikes = {};
     Object:DiscoverSpikes();
+
+    Object.loots = {};
+    Object:DiscoverLoots();
 
     allColliders = Engine.Scene:getAllColliders();
 
@@ -156,6 +165,12 @@ function Local.Init(x, y)
     Object.shoot.Sprite:setSize(obe.Transform.UnitVector(1, 1));
     Object.shoot.Sprite:setLayer(1);
     Object.shoot.Sprite:setVisible(false);
+
+    Object.modifiers = {
+        bullet_through_bridge = false
+    };
+    -- TODO: Move this out of Character
+    Object.puzzle_pieces = 0;
 end
 
 function Event.Actions.UseTile()
@@ -173,7 +188,8 @@ function Event.Actions.Shoot()
     Engine.Scene:createGameObject("Projectile") {
         x=pos.x,
         y=pos.y,
-        vecInit=vecInit
+        vecInit=vecInit,
+        bullet_through_bridge=Object.modifiers.bullet_through_bridge
     };
     Object.isShooting = true;
     Object.shoot.Sprite:setVisible(true);
@@ -262,6 +278,13 @@ function Event.Game.Update(event)
         end
     end
 
+    for _, loot in pairs(Object.loots) do
+        if This.Collider:getBoundingBox():intersects(loot.Sprite) and loot.active then
+            loot.Sprite:setVisible(false);
+            loot:effect(Object);
+            loot.active = false;
+        end
+    end
     -- Engine.Scene:getCamera():setPosition(This.Collider:getCentroid(), obe.Transform.Referential.Center);
 end
 

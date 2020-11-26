@@ -1,0 +1,15 @@
+Loot:
+    Script:
+        sources:[
+            "Data/GameObjects/Loot/LootDB.lua",
+            "Data/GameObjects/Loot/Loot.lua"
+            ]
+    Sprite:
+        rect:
+            x:0
+            y:0
+            width:0.12
+            height:0.12
+            unit:"SceneUnits"
+        layer: 0
+        zdepth: 0

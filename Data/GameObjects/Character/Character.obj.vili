@@ -10,6 +10,7 @@ Character:
             {x: 0.237, y: 0.41},
             {x: 0,     y: 0.41}
         ]
+        tag: "Character"
     Sprite:
         rect:
             x: 0
