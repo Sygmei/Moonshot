@@ -1,0 +1,3 @@
+MultiCluster:
+    Script:
+        source: "Data/GameObjects/MultiCluster/MultiCluster.lua"

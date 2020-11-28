@@ -1,0 +1,14 @@
+UiButton:
+    Sprite:
+        rect:
+            x: 0.2
+            y: 0.7
+            width: 1
+            height: 1
+            unit: "SceneUnits"
+        layer: 0
+        zdepth: 0
+    Script:
+        sources:[
+            "Data/GameObjects/UiButton/UiButton.lua"
+            ]

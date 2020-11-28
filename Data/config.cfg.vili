@@ -1,11 +1,14 @@
 Framerate:
     framerateLimit: true
-    framerateTarget: 144
+    framerateTarget: 165
     vsync: true
 
 Window:
     Game:
-        fullscreen: true
+        title: "Moonshot GameOff edition"
+        fullscreen: false
+        width: 1920
+        height: 1080
 
 GameConfig:
     antiAliasing: true
@@ -26,6 +29,12 @@ Input:
         Shoot: "Pressed: LMB"
         CreateMoon: "Pressed: RMB"
         ToggleCameraSmoothing: "Pressed: F2"
+        Keyboard:[
+            "Pressed:A","Pressed:B","Pressed:C","Pressed:D","Pressed:E","Pressed:F","Pressed:G","Pressed:H",
+            "Pressed:I","Pressed:J","Pressed:K","Pressed:L","Pressed:M","Pressed:N","Pressed:O","Pressed:P",
+            "Pressed:Q","Pressed:R","Pressed:S","Pressed:T","Pressed:U","Pressed:V","Pressed:W","Pressed:X",
+            "Pressed:Y","Pressed:Z"
+        ]
 
 Debug:
     Logging:

@@ -1,0 +1,14 @@
+UiInput:
+    Script:
+        sources: [
+            "Data/GameObjects/UiInput/Nicknames.lua",
+            "Data/GameObjects/UiInput/UiInput.lua"
+        ]
+    Sprite:
+        rect:
+            x:0.0
+            y:0.0
+            width:1.0
+            height:1.0
+        layer: 0
+        zdepth:0

@@ -1,93 +1,56 @@
-{ "columns":5,
- "editorsettings":
-    {
-     "export":
-        {
-         "format":"",
-         "target":"."
-        }
-    },
- "image":"..\/Sprites\/Spritesheets\/items.png",
- "imageheight":800,
- "imagewidth":1000,
+{ "columns":3,
+ "image":"..\/Sprites\/Spritesheets\/bridge_rock.png",
+ "imageheight":400,
+ "imagewidth":600,
  "margin":0,
- "name":"items",
+ "name":"bridge_rock",
  "spacing":0,
- "tilecount":20,
+ "tilecount":6,
  "tiledversion":"1.4.2",
  "tileheight":200,
  "tiles":[
+        {
+         "id":0,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":40,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Bridge"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":110,
+                     "x":90,
+                     "y":115
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
         {
          "id":1,
          "objectgroup":
             {
              "draworder":"index",
+             "id":2,
              "name":"",
              "objects":[
                     {
-                     "height":70,
-                     "id":1,
-                     "name":"",
-                     "properties":[
-                            {
-                             "name":"tag",
-                             "type":"string",
-                             "value":"Spike"
-                            }],
-                     "rotation":0,
-                     "type":"",
-                     "visible":true,
-                     "width":200,
-                     "x":0,
-                     "y":130
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            }
-        }, 
-        {
-         "id":8,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "name":"",
-             "objects":[
-                    {
-                     "height":70,
-                     "id":1,
-                     "name":"",
-                     "properties":[
-                            {
-                             "name":"tag",
-                             "type":"string",
-                             "value":"Spike"
-                            }],
-                     "rotation":0,
-                     "type":"",
-                     "visible":true,
-                     "width":200,
-                     "x":0,
-                     "y":130
-                    }],
-             "opacity":1,
-             "type":"objectgroup",
-             "visible":true,
-             "x":0,
-             "y":0
-            }
-        }, 
-        {
-         "id":10,
-         "objectgroup":
-            {
-             "draworder":"index",
-             "name":"",
-             "objects":[
-                    {
-                     "height":50,
+                     "height":40,
                      "id":1,
                      "name":"",
                      "properties":[
@@ -101,7 +64,39 @@
                      "visible":true,
                      "width":200,
                      "x":0,
-                     "y":150
+                     "y":115
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":2,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":40,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Bridge"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":110,
+                     "x":0,
+                     "y":115
                     }],
              "opacity":1,
              "type":"objectgroup",

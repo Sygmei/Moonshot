@@ -1,0 +1,5 @@
+Menu:
+    Script:
+        sources:[
+            "Data/GameObjects/Menu/Menu.lua"
+            ]

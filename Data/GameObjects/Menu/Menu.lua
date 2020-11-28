@@ -1,0 +1,2 @@
+function Local.Init()
+end

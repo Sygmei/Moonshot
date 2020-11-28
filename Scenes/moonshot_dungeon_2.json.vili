@@ -1045,7 +1045,8 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 13,
                 points: [{
@@ -1060,7 +1061,8 @@ Tiles:
                     }, {
                     x: 75,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 15,
                 points: [{
@@ -1075,7 +1077,8 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 16,
                 points: [{
@@ -1090,7 +1093,8 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 17,
                 points: [{
@@ -1105,7 +1109,8 @@ Tiles:
                     }, {
                     x: 60,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 18,
                 points: [{
@@ -1120,7 +1125,8 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }]
             
         items: 
@@ -1153,7 +1159,8 @@ Tiles:
                     x: 0,
                     y: 200
                     }],
-                tag: "Spike"
+                tag: "Spike",
+                unit: "ScenePixels"
                 }, {
                 id: 7,
                 points: [{
@@ -1169,7 +1176,8 @@ Tiles:
                     x: 0,
                     y: 200
                     }],
-                tag: "Spike"
+                tag: "Spike",
+                unit: "ScenePixels"
                 }, {
                 id: 8,
                 points: [{
@@ -1184,7 +1192,9 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                tag: "Bridge",
+                unit: "ScenePixels"
                 }]
             
         bridge_back: 
@@ -1216,7 +1226,8 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 7,
                 points: [{
@@ -1231,7 +1242,8 @@ Tiles:
                     }, {
                     x: 60,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 10,
                 points: [{
@@ -1246,7 +1258,8 @@ Tiles:
                     }, {
                     x: 60,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }, {
                 id: 11,
                 points: [{
@@ -1261,7 +1274,8 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }]
             
         bridge_front: 
@@ -1309,7 +1323,8 @@ Tiles:
                     }, {
                     x: 0,
                     y: 200
-                    }]
+                    }],
+                unit: "ScenePixels"
                 }]
             
         water: 
@@ -1931,6 +1946,7 @@ GameObjects:
             y: 3548.0
             width: 0.0
             height: 0.0
+            rotation: 0.0
             
         
     camera: 
@@ -1940,6 +1956,7 @@ GameObjects:
             y: 0.0
             width: 0.0
             height: 0.0
+            rotation: 0.0
             actor: "character"
             
         

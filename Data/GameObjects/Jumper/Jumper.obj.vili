@@ -1,0 +1,17 @@
+Jumper:
+    Animator:
+        path: "Sprites/Mushroom"
+        default: "idle"
+    Script:
+        sources:[
+            "Data/GameObjects/Jumper/Jumper.lua"
+            ]
+    Sprite:
+        rect:
+            x:0
+            y:0
+            width:0.36
+            height:0.36
+            unit:"SceneUnits"
+        layer: 0
+        zdepth: 0

@@ -1,0 +1,18 @@
+Meta:
+    name: "idle"
+    clock: 1
+    mode: "Loop"
+
+Images:
+    images: [
+        "champi0.png"
+    ]
+
+Groups:
+    main:
+        content: [0]
+
+Animation:
+    code: [
+        play_group { group:"main" }
+    ]

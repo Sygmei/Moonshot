@@ -1,0 +1,26 @@
+Meta:
+    name: "jump"
+    clock: 0.08
+    mode: "Loop"
+
+Images:
+    images: [
+        "champi0.png",
+        "champi1.png",
+        "champi2.png",
+        "champi3.png",
+        "champi4.png",
+        "champi5.png"
+    ]
+
+Groups:
+    main:
+        content: [
+            0, 1, 2, 3, 4, 5, 4, 3, 2, 1
+        ]
+
+Animation:
+    code: [
+        play_group { group:"main" },
+        set_animation { animation: "idle" }
+    ]

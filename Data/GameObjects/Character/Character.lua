@@ -31,8 +31,28 @@ function Object:DiscoverLoots()
     end
 end
 
+function Object:DiscoverCheckpoints()
+    for k, v in pairs(Engine.Scene:getAllGameObjects("Checkpoint")) do
+        table.insert(Object.checkpoints, v);
+    end
+end
+
+function Object:DiscoverJumpers()
+    for k, v in pairs(Engine.Scene:getAllGameObjects("Jumper")) do
+        table.insert(Object.jumpers, v);
+    end
+end
+
+function Object:respawn()
+    print("Respawn to", self.checkpoint);
+    This.SceneNode:setPosition(self.checkpoint);
+end
+
 -- Local Init Function
 function Local.Init(x, y)
+    Object.sounds = {
+        spike_death = Engine.Audio:load(obe.System.Path("Sounds/spike_death.ogg"), obe.Audio.LoadPolicy.Cache)
+    }
     Object.sprite_size = This.Sprite:getSize();
     --collectgarbage("stop")
     if (x == nil) then x = 0; end
@@ -40,9 +60,12 @@ function Local.Init(x, y)
 
     InitializeBindings();
     -- Initial Character Position
-    This.Collider:setPosition(obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels));
-    This.Sprite:setPosition(obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels));
+    This.SceneNode:setPosition(obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels));
+    -- This.Collider:setPosition(obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels));
+    -- This.Sprite:setPosition(obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels));
     Object.toDump = {x = x, y = y};
+
+    Object.checkpoint = This.SceneNode:getPosition();
 
     -- Character's Collider tags
     This.Collider:addTag(obe.Collision.ColliderTagType.Tag, "Character");
@@ -76,6 +99,12 @@ function Local.Init(x, y)
     Object.loots = {};
     Object:DiscoverLoots();
 
+    Object.checkpoints = {};
+    Object:DiscoverCheckpoints();
+
+    Object.jumpers = {};
+    Object:DiscoverJumpers();
+
     allColliders = Engine.Scene:getAllColliders();
 
     Trajectories = obe.Collision.TrajectoryNode(This.SceneNode);
@@ -95,8 +124,10 @@ function Local.Init(x, y)
             end
         end
         for _, spike in pairs(Object.spikes) do
-            if This.Collider:doesCollide(spike, obe.UnitVector(0, 0)) then
-                print("DIEEEE")
+            if This.Collider:doesCollide(spike, obe.Transform.UnitVector(0, 0)) then
+                print("DIEEEE");
+                Object.sounds.spike_death:play();
+                Object:respawn();
             end
         end
     end);
@@ -167,7 +198,8 @@ function Local.Init(x, y)
     Object.shoot.Sprite:setVisible(false);
 
     Object.modifiers = {
-        bullet_through_bridge = false
+        bullet_through_bridge = false,
+        moon = false
     };
     -- TODO: Move this out of Character
     Object.puzzle_pieces = 0;
@@ -189,18 +221,20 @@ function Event.Actions.Shoot()
         x=pos.x,
         y=pos.y,
         vecInit=vecInit,
-        bullet_through_bridge=Object.modifiers.bullet_through_bridge
+        through_bridge=Object.modifiers.bullet_through_bridge
     };
     Object.isShooting = true;
     Object.shoot.Sprite:setVisible(true);
 end
 
 function Event.Actions.CreateMoon()
-    local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getPosition()):to(obe.Transform.Units.ScenePixels);
-    Engine.Scene:createGameObject("Moon") {
-        x=realPos.x,
-        y=realPos.y
-    };
+    if Object.modifiers.moon then
+        local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getPosition()):to(obe.Transform.Units.ScenePixels);
+        Engine.Scene:createGameObject("Moon") {
+            x=realPos.x,
+            y=realPos.y
+        };
+    end
 end
 
 function Character.Left()
@@ -218,7 +252,18 @@ function Character.Jump()
         v:release();
     end
     if not Object.isJumping and not Object.isFalling then
-        Trajectories:getTrajectory("Jump"):setSpeed(Object.speeds.jump);
+        local jump_speed = Object.speeds.jump;
+        local jump_angle = 90;
+        for _, jumper in pairs(Object.jumpers) do
+            if jumper.active and This.Collider:getBoundingBox():intersects(jumper.Sprite) then
+                jump_speed = jumper.speed;
+                jump_angle = jumper.angle;
+                jumper:use();
+                break;
+            end
+        end
+        Trajectories:getTrajectory("Jump"):setAngle(jump_angle);
+        Trajectories:getTrajectory("Jump"):setSpeed(jump_speed);
         Trajectories:getTrajectory("Jump"):setStatic(false);
         Object.isJumping = true;
         This.Animator:setKey("jump_" .. Object.direction);
@@ -283,6 +328,18 @@ function Event.Game.Update(event)
             loot.Sprite:setVisible(false);
             loot:effect(Object);
             loot.active = false;
+        end
+    end
+
+    for _, checkpoint in pairs(Object.checkpoints) do
+        if This.Collider:getBoundingBox():intersects(checkpoint.Sprite) and not checkpoint.enabled then
+            Object.checkpoint = checkpoint.SceneNode:getPosition();
+            print("New checkpoint", Object.checkpoint);
+            for _, checkpoint2 in pairs(Object.checkpoints) do
+                checkpoint2:disable();
+            end
+            checkpoint:enable();
+            break;
         end
     end
     -- Engine.Scene:getCamera():setPosition(This.Collider:getCentroid(), obe.Transform.Referential.Center);
