@@ -14,8 +14,6 @@ local ANIMATION_TIME = 0.2;
 
 
 function Local.Init(x, y, width, height)
-    print("Waterfall initialized");
-
     Object.clock = ANIMATION_TIME;
 
     local tile_width = Engine.Scene:getTiles():getTileWidth();
@@ -26,6 +24,18 @@ function Local.Init(x, y, width, height)
     Object.waterfall_width = math.floor(width / tile_width);
     Object.waterfall_height = math.floor(height / tile_height);
     Object.state = false
+end
+
+function canGoThrough(x, y)
+    local items_tile_id = Engine.Scene:getTiles():getLayer("Items"):getTile(x, y);
+    local bridge_id_offset = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();
+    print(items_tile_id, bridge_id_offset, Engine.Scene:getTiles():getLayer("Tile_Layer"):getTile(x, y), Engine.Scene:getTiles():getLayer("Tile_Layer_Back"):getTile(x, y))
+    if items_tile_id ~= 0 and (items_tile_id < bridge_id_offset + 3 or items_tile_id > bridge_id_offset + 5)
+    or Engine.Scene:getTiles():getLayer("Tile_Layer"):getTile(x, y) ~= 0
+    or Engine.Scene:getTiles():getLayer("Tile_Layer_Back"):getTile(x, y) ~= 0 then
+        return false;
+    end
+    return true;
 end
 
 function waterfall(event)
@@ -39,10 +49,7 @@ function waterfall(event)
     local new_y = current_y + 1;
 
     local prefix = "";
-    local tile_id = Engine.Scene:getTiles():getLayer("Items"):getTile(Object.tile_x, current_y);
-    local bridge_id_offset = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();
-    if tile_id >= bridge_id_offset and tile_id <= bridge_id_offset + 2 then
-        print("stop the floow", current_y, tile_id, bridge_id_offset)
+    if not canGoThrough(Object.tile_x, current_y) then
         prefix = "BOTTOM_";
         Object.state = false
         Object.clock = ANIMATION_TIME
@@ -58,7 +65,6 @@ function waterfall(event)
         elseif x == max_x then
             suffix = "RIGHT";
         end
-        print("Set tile to : "..prefix..suffix, x,current_y)
         Engine.Scene:getTiles():getLayer("Water"):setTile(x, current_y, WATERFALL_SPRITESHEET_OFFSET+WATERFALL_TILE_ID[prefix..suffix]);
         if prefix == "" then
             Engine.Scene:getTiles():getLayer("Water"):setTile(x, new_y, WATERFALL_SPRITESHEET_OFFSET+WATERFALL_TILE_ID["FALLING_"..suffix]);
@@ -68,10 +74,7 @@ end
 
 function testWaterfall(event)
     local current_y = Object.tile_y + Object.waterfall_height - 1;
-    local tile_id = Engine.Scene:getTiles():getLayer("Items"):getTile(Object.tile_x, current_y);
-    local bridge_id_offset = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();
-    if tile_id < bridge_id_offset or tile_id > bridge_id_offset + 2 then
-        print("flooow",current_y, tile_id, bridge_id_offset)
+    if canGoThrough(Object.tile_x, current_y) then
         Object.state = true
     end
 end
