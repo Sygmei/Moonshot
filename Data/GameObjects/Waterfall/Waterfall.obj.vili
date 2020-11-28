@@ -1,0 +1,3 @@
+Waterfall:
+    Script:
+        source: "Data/GameObjects/Waterfall/Waterfall.lua"
