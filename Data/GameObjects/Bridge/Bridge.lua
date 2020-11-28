@@ -1,14 +1,15 @@
-local DISABLED_BRIDGE_LEFT_TILE_ID = 240;
-local DISABLED_BRIDGE_CENTER_TILE_ID = 241;
-local DISABLED_BRIDGE_RIGHT_TILE_ID = 242;
-local ENABLED_BRIDGE_LEFT_TILE_ID = 237;
-local ENABLED_BRIDGE_CENTER_TILE_ID = 238;
-local ENABLED_BRIDGE_RIGHT_TILE_ID = 239;
+local ENABLED_BRIDGE_LEFT_TILE_ID = 0;
+local ENABLED_BRIDGE_CENTER_TILE_ID = 1;
+local ENABLED_BRIDGE_RIGHT_TILE_ID = 2;
+local DISABLED_BRIDGE_LEFT_TILE_ID = 3;
+local DISABLED_BRIDGE_CENTER_TILE_ID = 4;
+local DISABLED_BRIDGE_RIGHT_TILE_ID = 5;
 
 function setBridgeState(enabled)
     local new_state = Object.state ~= enabled;
     local max_x = Object.tile_x + Object.bridge_width - 1;
     local max_y = Object.tile_y + Object.bridge_height - 1;
+    local BRIDGE_TILE_OFFSET = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();
     for x = Object.tile_x, max_x, 1 do
         for y = Object.tile_y, max_y, 1 do
             local tile_id;
@@ -30,7 +31,7 @@ function setBridgeState(enabled)
                     tile_id = DISABLED_BRIDGE_CENTER_TILE_ID;
                 end
             end
-            Engine.Scene:getTiles():getLayer("Items"):setTile(x, y, tile_id);
+            Engine.Scene:getTiles():getLayer("Items"):setTile(x, y, BRIDGE_TILE_OFFSET + tile_id);
         end
     end
 end
