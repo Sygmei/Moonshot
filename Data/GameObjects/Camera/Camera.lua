@@ -66,6 +66,7 @@ function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
     Object.clamps = Object.base_clamps;
     Engine.Scene:getCamera():setPosition(Object.actor:getCentroid(), obe.Transform.Referential.Center);
     Object.zones = getAllZones();
+    Object.cave_size = Engine.Scene:getSprite("grotte_0"):getSize();
 end
 
 local CAMERA_SPEED = 4;
@@ -102,6 +103,12 @@ function Event.Game.Update(event)
     Object.current_scale = Object.current_scale + (Object.target_scale - Object.current_scale) * CAMERA_SPEED * event.dt
     -- Engine.Scene:getCamera():setSize(Object.target_scale, obe.Transform.Referential.Center);
     Engine.Scene:getCamera():setSize(Object.current_scale, obe.Transform.Referential.Center);
+    allSprites = Engine.Scene:getAllSprites()
+    for _, sprite in pairs(allSprites) do
+        if string.match(sprite:getId(), "grotte") then
+            sprite:setSize(Object.cave_size*Object.current_scale);
+        end
+    end
 end
 
 function Event.Actions.ToggleCameraSmoothing()
