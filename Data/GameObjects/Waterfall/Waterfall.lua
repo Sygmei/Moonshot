@@ -29,7 +29,6 @@ end
 function canGoThrough(x, y)
     local items_tile_id = Engine.Scene:getTiles():getLayer("Items"):getTile(x, y);
     local bridge_id_offset = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();
-    print(items_tile_id, bridge_id_offset, Engine.Scene:getTiles():getLayer("Tile_Layer"):getTile(x, y), Engine.Scene:getTiles():getLayer("Tile_Layer_Back"):getTile(x, y))
     if items_tile_id ~= 0 and (items_tile_id < bridge_id_offset + 3 or items_tile_id > bridge_id_offset + 5)
     or Engine.Scene:getTiles():getLayer("Tile_Layer"):getTile(x, y) ~= 0
     or Engine.Scene:getTiles():getLayer("Tile_Layer_Back"):getTile(x, y) ~= 0 then

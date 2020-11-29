@@ -161,23 +161,22 @@ function Local.Init(x, y)
                 if angle > 180 then
                     angle = angle - 180;
                 end
-                self:setAngle(math.abs(angle - 180));
+                self:setAngle(angle);
             else
-                --[[local collision = This.Collider:getMaximumDistanceBeforeCollision(obe.Transform.UnitVector(0, 0.01));
+                local collision = This.Collider:getMaximumDistanceBeforeCollision(obe.Transform.UnitVector(0, 0.01));
                 if #collision.colliders > 0 then
-                    local collider = collision.colliders[1];
-                    local angle = obe.Utils.Math.normalize(collider:getSegment(0):getAngle(), 0, 360);
-                    if angle ~= 0 then
-                        print(1, angle)
-                        if angle < 180 then
-                            angle = angle + 180;
+                    local angle = 0
+                    for _, collider in pairs(collision.colliders) do
+                        angle = obe.Utils.Math.normalize(collider:getSegment(0):getAngle(), 0, 360);
+                        if angle == 0 or angle == 180 then
+                            return
                         end
-                        print(2, angle)
-                        angle = 180 + math.abs(360 - angle);
-                        print(3, angle);
-                        self:setAngle(angle);
                     end
-                end]]--
+                    if angle < 180 then
+                        angle = angle + 180;
+                    end
+                    self:setAngle(angle);
+                end
             end
         end
     end);
