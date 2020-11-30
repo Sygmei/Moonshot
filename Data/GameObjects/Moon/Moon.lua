@@ -1,5 +1,5 @@
-CAPTATION_RADIUS = 500
-ORBIT_RADIUS = 200
+CAPTATION_RADIUS = 0.9
+ORBIT_RADIUS = 0.37
 
 
 function Local.Init(x, y)
@@ -7,7 +7,7 @@ function Local.Init(x, y)
     Object.deleted = false;
 
     center = {x=x, y=y}
-    This.Sprite:setPosition(obe.Transform.UnitVector(x,y, obe.Transform.Units.ScenePixels), obe.Transform.Referential.Center)
+    This.Sprite:setPosition(obe.Transform.UnitVector(x,y), obe.Transform.Referential.Center)
 end
 
 function Object:delete()
@@ -31,22 +31,9 @@ function Object:release()
     end
 end
 
---[[
-function Event.Keys.MMB(event)
-    if event.state == obe.Input.InputButtonState.Pressed then
-        pos = Engine.Cursor:getPosition()
-        spritePos = This.Sprite:getPosition(obe.Transform.Referential.TopLeft):to(obe.Transform.Units.ScenePixels)
-        spriteSize = This.Sprite:getSize():to(obe.Transform.Units.ScenePixels)
-        if pos.x >= spritePos.x and pos.x <= spritePos.x + spriteSize.x and pos.y >= spritePos.y and pos.y <= spritePos.y + spriteSize.y then
-            active = not active
-        end
-    end
-end
-]]
-
 local function inDist(x, y, radius)
     local dist = math.sqrt((x-center.x)*(x-center.x)+(y-center.y)*(y-center.y))
-    if dist <= radius+2 then
+    if dist <= radius+0.0037 then
         return true
     end
     return false

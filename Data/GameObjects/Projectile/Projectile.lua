@@ -28,7 +28,7 @@ function Local.Init(x, y, vecInit, through_bridge)
         y = (obe.Utils.Math.randint(0, 1)*2-1)  * obe.Utils.Math.randfloat()
         vecUnit = Vector2(x, y):normalize()
     end
-    This.SceneNode:setPosition(obe.Transform.UnitVector(x,y, obe.Transform.Units.ScenePixels), obe.Transform.Referential.Center)
+    This.SceneNode:setPosition(obe.Transform.UnitVector(x,y), obe.Transform.Referential.Center)
 
     t = 0
     state = State.FREE
@@ -93,8 +93,7 @@ function checkOrbit()
 end
 
 local function followCircle(circle, dt)
-    local real_speed = obe.Transform.UnitVector(0, SPEED):to(obe.Transform.Units.ScenePixels).y;
-    local angularSpeed = real_speed / circle.radius;
+    local angularSpeed = SPEED / circle.radius;
     local angularVelocity = direction*angularSpeed;
     t = t + dt
     center.x = circle.radius*math.cos(t*angularVelocity+initialAngle) + circle.x
@@ -126,9 +125,8 @@ function Event.Game.Update(event)
         followCircle(ramp.circle, event.dt)
         checkOrbit()
     else
-        local real_speed = obe.Transform.UnitVector(0, SPEED):to(obe.Transform.Units.ScenePixels).y;
-        center.x = center.x + vecUnit.x * real_speed * event.dt;
-        center.y = center.y + vecUnit.y * real_speed * event.dt
+        center.x = center.x + vecUnit.x * SPEED * event.dt;
+        center.y = center.y + vecUnit.y * SPEED * event.dt
         if state == State.ATTRACTED then
             checkOrbit()
         else
@@ -136,7 +134,7 @@ function Event.Game.Update(event)
         end
     end
     for _, target in pairs(targets) do
-        local offset = obe.Transform.UnitVector(center.x - oldCenter.x, center.y - oldCenter.y, obe.Transform.Units.ScenePixels);
+        local offset = obe.Transform.UnitVector(center.x - oldCenter.x, center.y - oldCenter.y);
         local max_dist_before_collision = This.Collider:getMaximumDistanceBeforeCollision(target.Collider, offset);
         
         if max_dist_before_collision ~= offset then
@@ -155,5 +153,5 @@ function Event.Game.Update(event)
         This.Sprite:setVisible(false);
         Object.inactive = true;
     end
-    This.SceneNode:setPosition(obe.Transform.UnitVector(center.x, center.y, obe.Transform.Units.ScenePixels), obe.Transform.Referential.Center)
+    This.SceneNode:setPosition(obe.Transform.UnitVector(center.x, center.y), obe.Transform.Referential.Center)
 end

@@ -241,10 +241,10 @@ function Event.Actions.UseTile()
 end
 
 function Event.Actions.Shoot()
-    local cursorPos = Engine.Cursor:getPosition();
-    local pos = This.Collider:getCentroid():to(obe.Transform.Units.ScenePixels);
-    local relPos = pos - Engine.Scene:getCamera():getPosition();
-    local vecInit = obe.Transform.UnitVector(cursorPos.x - relPos.x, cursorPos.y - relPos.y, obe.Transform.Units.ScenePixels);
+    local cursorPos = Engine.Cursor:getPosition():to(obe.Transform.Units.SceneUnits);
+    local pos = This.Collider:getCentroid()
+    local relPos = pos - Engine.Scene:getCamera():getPosition():to(obe.Transform.Units.SceneUnits);
+    local vecInit = obe.Transform.UnitVector(cursorPos.x - relPos.x, cursorPos.y - relPos.y);
     Engine.Scene:createGameObject("Projectile") {
         x=pos.x,
         y=pos.y,
@@ -264,7 +264,7 @@ function Event.Actions.CreateMoon()
         end
     end
     if Object.modifiers.moon and amount_of_moons < 1 then
-        local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getPosition()):to(obe.Transform.Units.ScenePixels);
+        local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getPosition());
         Engine.Scene:createGameObject("Moon") {
             x=realPos.x,
             y=realPos.y
