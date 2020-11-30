@@ -25,7 +25,7 @@ Sprites:
         path:"Sprites/Ui/cadre0.png"
         rect:
             x:0.2
-            y:0.35
+            y:0.25
             width:0.6
             height:0.197
             unit:"ViewPercentage"
@@ -36,7 +36,7 @@ Sprites:
         path:"Sprites/Ui/cadre1.png"
         rect:
             x:0.2
-            y:0.55
+            y:0.45
             width:0.6
             height:0.197
             unit:"ViewPercentage"
@@ -44,11 +44,13 @@ Sprites:
         zdepth:2
 
 GameObjects:
+    menu:
+        type: "Menu"
     login:
         type: "UiButton"
         Requires:
             x: 0.1
-            y: 0.8
+            y: 0.7
             width: 0.3
             height: 0.06
             name: "login"
@@ -56,7 +58,7 @@ GameObjects:
         type: "UiButton"
         Requires:
             x: 0.6
-            y: 0.8
+            y: 0.7
             width: 0.3
             height: 0.06
             name: "quit"

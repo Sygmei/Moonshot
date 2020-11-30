@@ -1,0 +1,36 @@
+Meta:
+    name:"Main"
+
+View:
+    size: 1.0
+    position:
+        x: 0.0
+        y: 0.0
+    referential: TopLeft
+
+Sprites:
+    sprite1:
+        path:"Sprites/aubergine.png"
+        rect: Rect {
+            x: 0.072222,
+            y: 0.564815,
+            width: 1.05,
+            height: 1.05,
+            unit: SceneUnits
+        }
+        rotation: 0.0
+        layer: 1
+        zdepth: -1
+        transform: CameraTransform
+
+GameObjects:
+    gear:
+        type:"Gear"
+    fade:
+        type:"Fade"
+    madeWithObEngine:
+        type:"MadeWithObEngine"
+        Requires:
+            next_scene: "Scenes/main_menu.vili"
+
+

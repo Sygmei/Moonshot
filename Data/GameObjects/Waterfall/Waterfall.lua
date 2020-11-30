@@ -54,6 +54,17 @@ function waterfall(event)
         Object.clock = ANIMATION_TIME
     else
         Object.waterfall_height = Object.waterfall_height + 1;
+        local extincted_fire = false;
+        for x = Object.tile_x - 1, max_x + 1, 1 do
+            local tileId = Engine.Scene:getTiles():getLayer("Items_front"):getTile(x, Object.waterfall_height);
+            if tileId ~= 0 and Engine.Scene:getTiles():getTilesets():tilesetFromTileId(tileId):getId() == "fire" then
+                extincted_fire = true;
+                Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, Object.waterfall_height, 0);
+            end
+        end
+        if extincted_fire then
+            Engine.Scene:getGameObject("character"):DiscoverFires();
+        end
     end
     local WATERFALL_SPRITESHEET_OFFSET = Engine.Scene:getTiles():getTilesets():tilesetFromId("waterfall"):getFirstTileId();
 

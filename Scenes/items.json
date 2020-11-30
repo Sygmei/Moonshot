@@ -109,6 +109,70 @@
              "x":0,
              "y":0
             }
+        }, 
+        {
+         "id":15,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":25,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Spike"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":150,
+                     "x":50,
+                     "y":95
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
+        }, 
+        {
+         "id":16,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":25,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Spike"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":160,
+                     "x":0,
+                     "y":95
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
         }],
  "tilewidth":200,
  "type":"tileset",

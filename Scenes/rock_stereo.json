@@ -1,0 +1,14 @@
+{ "columns":6,
+ "image":"..\/Sprites\/Spritesheets\/rock_stereo.png",
+ "imageheight":800,
+ "imagewidth":1200,
+ "margin":0,
+ "name":"rock_stereo",
+ "spacing":0,
+ "tilecount":24,
+ "tiledversion":"1.4.2",
+ "tileheight":200,
+ "tilewidth":200,
+ "type":"tileset",
+ "version":1.4
+}

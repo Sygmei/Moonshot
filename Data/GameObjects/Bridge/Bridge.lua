@@ -49,12 +49,22 @@ function Local.Init(x, y, width, height, state)
     Object.bridge_width = math.floor(width / tile_width);
     Object.bridge_height = math.floor(height / tile_height);
 
+    Object.rect = obe.Transform.Rect();
+    Object.rect:setPosition(obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels));
+    Object.rect:setSize(obe.Transform.UnitVector(width, height, obe.Transform.Units.ScenePixels));
+
     setBridgeState(false);
 end
 
 function Object:success()
     print(self.id, "bridge activated :)");
     setBridgeState(true);
+    local character = Engine.Scene:getGameObject("character");
+    local bbox = character.Collider:getBoundingBox();
+    if bbox:intersects(Object.rect) then
+        local offset = Object.rect:getPosition(obe.Transform.Referential.Top) - bbox:getPosition(obe.Transform.Referential.Bottom);
+        character.SceneNode:move(obe.Transform.UnitVector(0, offset.y));
+    end
 end
 
 function Object:failure()

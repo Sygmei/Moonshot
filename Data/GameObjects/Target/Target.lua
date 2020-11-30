@@ -16,10 +16,13 @@ function Local.Init(x, y, cluster, hits, rotation)
     This.SceneNode:setPosition(base_position);
     Object.hits = hits or 1;
     Object.currentHit = 0;
+    Object.sound = Engine.Audio:load(obe.System.Path("Sounds/impact.ogg"), obe.Audio.LoadPolicy.Cache);
 end
 
 function Object:hit()
     print("Hit target", Object.id);
+    This.Sprite:setColor(obe.Graphics.Color(100, 100, 255));
+    Object.sound:play();
     if Object.cluster == nil then
         return
     end
@@ -34,16 +37,26 @@ function Object:setCluster(cluster, index)
     Object.index = index
 end
 
+function scheduleBackToNormal()
+    Engine.Events:schedule():after(2):run(function()
+        This.Sprite:setColor(obe.Graphics.Color.White);
+    end);
+end
+
 function Object:success()
     if Object.cluster == nil then
         return
     end
     Object.currentHit = 0
+    This.Sprite:setColor(obe.Graphics.Color(100, 255, 100));
+    scheduleBackToNormal();
 end
 
 function Object:failure()
     if Object.cluster == nil then
         return
     end
-    Object.currentHit = 0
+    Object.currentHit = 0;
+    This.Sprite:setColor(obe.Graphics.Color.Red);
+    scheduleBackToNormal();
 end

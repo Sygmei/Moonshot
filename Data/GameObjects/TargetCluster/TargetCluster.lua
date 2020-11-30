@@ -19,6 +19,11 @@ function Local.Init(trigger, timeout, resetTime)
         resetTimer = obe.Time.Chronometer()
         resetTimer:setLimit(resetTime)
     end
+    Object.timer_sound = Engine.Audio:load(obe.System.Path("Sounds/ticktock.ogg"), obe.Audio.LoadPolicy.Cache);
+    Object.timer_sound:setLooping(true);
+
+    Object.valid_sound = Engine.Audio:load(obe.System.Path("Sounds/valid.ogg"), obe.Audio.LoadPolicy.Cache);
+    Object.invalid_sound = Engine.Audio:load(obe.System.Path("Sounds/invalid.ogg"), obe.Audio.LoadPolicy.Cache);
 end
 
 function Object:addTarget(target)
@@ -28,6 +33,8 @@ function Object:addTarget(target)
 end
 
 function Object:failure()
+    Object.timer_sound:stop();
+    Object.invalid_sound:play();
     for i, target in ipairs(Object.targets) do
         target:failure()
     end
@@ -43,6 +50,8 @@ function Object:failure()
 end
 
 local function success()
+    Object.timer_sound:stop();
+    Object.valid_sound:play();
     for i, target in ipairs(Object.targets) do
         target:success()
     end
@@ -59,6 +68,7 @@ function Object:targetHit(index)
     if not sequenceStarted and index == 1 then
         sequenceStarted = true
         chronoTrigger:start()
+        Object.timer_sound:play();
     end
     if not sequenceStarted or nextTarget ~= index then
         Object:failure()

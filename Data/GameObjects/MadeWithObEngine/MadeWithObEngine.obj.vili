@@ -1,0 +1,14 @@
+MadeWithObEngine:
+    Sprite:
+        transform: CameraTransform
+        layer: 2
+        zdepth: 0
+        rect: Rect {
+            width: 1.0,
+            height: 1.0,
+            unit: ViewPercentage
+        }
+    Script:
+        source:"Data/GameObjects/MadeWithObEngine/MadeWithObEngine.lua"
+
+

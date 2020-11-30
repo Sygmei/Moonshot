@@ -25,9 +25,10 @@ Input:
         UseTile: "Pressed: MMB"
         Left: "Hold: Q"
         Right: "Hold: D"
-        Jump: "Hold: Space"
+        Jump: "Pressed: Space"
         Shoot: "Pressed: LMB"
         CreateMoon: "Pressed: RMB"
+        CancelRemoveMoon: "Released: RMB"
         ToggleCameraSmoothing: "Pressed: F2"
         Keyboard:[
             "Pressed:A","Pressed:B","Pressed:C","Pressed:D","Pressed:E","Pressed:F","Pressed:G","Pressed:H",
@@ -35,6 +36,8 @@ Input:
             "Pressed:Q","Pressed:R","Pressed:S","Pressed:T","Pressed:U","Pressed:V","Pressed:W","Pressed:X",
             "Pressed:Y","Pressed:Z"
         ]
+        Reset: "Pressed: R"
+        Suicide: "Pressed: K"
 
 Debug:
     Logging:

@@ -1,0 +1,5 @@
+Lock:
+    Script:
+        sources:[
+            "Data/GameObjects/Lock/Lock.lua"
+            ]

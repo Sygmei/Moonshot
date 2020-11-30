@@ -1,5 +1,13 @@
 { "columns":3,
- "image":"../Sprites/Spritesheets/fire.png",
+ "editorsettings":
+    {
+     "export":
+        {
+         "format":"",
+         "target":"."
+        }
+    },
+ "image":"..\/Sprites\/Spritesheets\/fire.png",
  "imageheight":2000,
  "imagewidth":600,
  "margin":0,
@@ -31,7 +39,35 @@
                  "duration":150,
                  "tileid":24
                 }],
-         "id":0
+         "id":0,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "name":"",
+             "objects":[
+                    {
+                     "height":90,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Fire"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":105,
+                     "x":95,
+                     "y":110
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
         }, 
         {
          "animation":[
@@ -55,7 +91,36 @@
                  "duration":150,
                  "tileid":25
                 }],
-         "id":1
+         "id":1,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":90,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Fire"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":200,
+                     "x":0,
+                     "y":110
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
         }, 
         {
          "animation":[
@@ -79,7 +144,36 @@
                  "duration":150,
                  "tileid":26
                 }],
-         "id":2
+         "id":2,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":90,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Fire"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":105,
+                     "x":0,
+                     "y":110
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
         }, 
         {
          "animation":[
@@ -103,7 +197,36 @@
                  "duration":150,
                  "tileid":27
                 }],
-         "id":3
+         "id":3,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":115,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Fire"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":105,
+                     "x":95,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
         }, 
         {
          "animation":[
@@ -127,7 +250,36 @@
                  "duration":150,
                  "tileid":28
                 }],
-         "id":4
+         "id":4,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":115,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Fire"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":200,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
         }, 
         {
          "animation":[
@@ -151,7 +303,36 @@
                  "duration":150,
                  "tileid":29
                 }],
-         "id":5
+         "id":5,
+         "objectgroup":
+            {
+             "draworder":"index",
+             "id":2,
+             "name":"",
+             "objects":[
+                    {
+                     "height":115,
+                     "id":1,
+                     "name":"",
+                     "properties":[
+                            {
+                             "name":"tag",
+                             "type":"string",
+                             "value":"Fire"
+                            }],
+                     "rotation":0,
+                     "type":"",
+                     "visible":true,
+                     "width":105,
+                     "x":0,
+                     "y":0
+                    }],
+             "opacity":1,
+             "type":"objectgroup",
+             "visible":true,
+             "x":0,
+             "y":0
+            }
         }],
  "tilewidth":200,
  "type":"tileset",

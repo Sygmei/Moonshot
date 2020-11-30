@@ -52,8 +52,12 @@ function setClamps()
 end
 
 function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
-    -- Object.ost = Engine.Audio:load(obe.System.Path("D:/Assets/githubjam2020/OST/Moonshot_OST_WIP_1.mp3"), obe.Audio.LoadPolicy.Stream);
-    -- Object.ost:play();
+    Object.ost = Engine.Audio:load(obe.System.Path("Sounds/Moonshot_OST__Field_Unmastered.mp3"), obe.Audio.LoadPolicy.Stream);
+    Object.ost:setVolume(0.2);
+    Object.ost:setLooping(true);
+    Object.ost:play();
+
+
     Object.current_scale = 1;
     Object.target_scale = 1;
     Object.actor = Engine.Scene:getCollider(actor);
@@ -66,7 +70,9 @@ function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
     Object.clamps = Object.base_clamps;
     Engine.Scene:getCamera():setPosition(Object.actor:getCentroid(), obe.Transform.Referential.Center);
     Object.zones = getAllZones();
-    Object.cave_size = Engine.Scene:getSprite("grotte_0"):getSize();
+    if Engine.Scene:doesSpriteExists("grotte_0") then
+        Object.cave_size = Engine.Scene:getSprite("grotte_0"):getSize();
+    end
 end
 
 local CAMERA_SPEED = 4;
@@ -148,4 +154,8 @@ end
 function Event.Actions.CameraUnzoom(event)
     Engine.Scene:getCamera():scale(1.05, obe.Transform.Referential.Center);
     print("Unzoom Camera Position (from center)", Engine.Scene:getCamera():getPosition(obe.Transform.Referential.Center):to(obe.Transform.Units.SceneUnits));
+end
+
+function Local.Delete()
+    Object.ost:stop();
 end

@@ -1,4 +1,4 @@
-local NORMAL_SPEED = 4
+local NORMAL_SPEED = 7
 local ORBIT_SPEED = 1
 local SPEED = NORMAL_SPEED --pxl/s
 
@@ -105,11 +105,14 @@ function Event.Game.Update(event)
     if Object.inactive then
         return;
     end
+
     if state == State.ORBIT then
         SPEED = ORBIT_SPEED;
     else
         SPEED = NORMAL_SPEED;
     end
+
+    This.Sprite:rotate(SPEED * event.dt * 180, obe.Transform.Referential.Center);
     if moon ~= nil and not moon:active() then
         state = State.FREE
         vecUnit = Vector2(center.x - oldCenter.x, center.y - oldCenter.y):normalize()

@@ -1,0 +1,5 @@
+Gate:
+    Script:
+        sources:[
+            "Data/GameObjects/Gate/Gate.lua"
+            ]

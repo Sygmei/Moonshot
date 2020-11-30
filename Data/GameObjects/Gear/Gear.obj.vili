@@ -1,0 +1,15 @@
+Gear:
+    Sprite:
+        layer: 1
+        zdepth: 0
+        path: "Sprites/gear.png"
+        rect:
+            x: 0
+            y: 0
+            width: 1
+            height: 1
+            unit: "SceneUnits"
+    Script:
+        source: "Data/GameObjects/Gear/Gear.lua"
+
+

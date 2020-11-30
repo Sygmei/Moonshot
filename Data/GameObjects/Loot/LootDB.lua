@@ -12,4 +12,18 @@ LOOT_DB = {
             print(character.puzzle_pieces);
         end
     },
+    key = {
+        image = "Sprites/Loot/key.png",
+        effect = function(self, character)
+            print("Got a key :)", self.id);
+            character.keys[self.id] = true;
+        end
+    },
+    moon = {
+        image = "Sprites/Loot/moon.png",
+        effect = function(self, character)
+            print("Got a moon :)", self.id);
+            character.modifiers.moon = true;
+        end
+    },
 }

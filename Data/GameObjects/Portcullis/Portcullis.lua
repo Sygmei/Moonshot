@@ -1,8 +1,10 @@
-local PORTCULLIS_CLOSE_TILE_ID = 244;
-local PORTCULLIS_OPEN_TILE_ID = 248;
-local PORTCULLIS_TOP_TILE_ID = 243;
-local PORTCULLIS_MIDDLE_TILE_ID = 245;
-local PORTCULLIS_BOTTOM_TILE_ID = 247;
+local PORTCULLIS_TILESET_FIRST_TILE_ID;
+
+local PORTCULLIS_CLOSE_TILE_ID;
+local PORTCULLIS_OPEN_TILE_ID;
+local PORTCULLIS_TOP_TILE_ID;
+local PORTCULLIS_MIDDLE_TILE_ID;
+local PORTCULLIS_BOTTOM_TILE_ID;
 
 function setPortcullisState(enabled)
     local new_state = Object.state ~= enabled;
@@ -118,7 +120,14 @@ function closePortculis(event)
 end
 
 function Local.Init(x, y, width, height, state)
-    print("Bridge initialized");
+    local PORTCULLIS_TILESET_FIRST_TILE_ID = Engine.Scene:getTiles():getTilesets():tilesetFromId("portcullis"):getFirstTileId();
+
+    PORTCULLIS_CLOSE_TILE_ID = PORTCULLIS_TILESET_FIRST_TILE_ID + 1;
+    PORTCULLIS_OPEN_TILE_ID = PORTCULLIS_TILESET_FIRST_TILE_ID + 5;
+    PORTCULLIS_TOP_TILE_ID = PORTCULLIS_TILESET_FIRST_TILE_ID + 0;
+    PORTCULLIS_MIDDLE_TILE_ID = PORTCULLIS_TILESET_FIRST_TILE_ID + 2;
+    PORTCULLIS_BOTTOM_TILE_ID = PORTCULLIS_TILESET_FIRST_TILE_ID + 4;
+    print("Portcullis initialized");
     Object.state = state or false;
     Object.clock = 0;
     Object.step = 0;

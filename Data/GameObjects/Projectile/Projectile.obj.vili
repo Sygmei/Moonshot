@@ -16,10 +16,10 @@ Projectile:
     Sprite:
         path:"Sprites/projectile.png"
         rect:
-            x:-0.02
-            y:-0.02
-            width:10.0
-            height:10.0
-            unit:"ScenePixels"
+            x: 0
+            y: 0
+            width: 0.1
+            height: 0.1
+            unit: "SceneUnits"
         layer: 0
         zdepth:0

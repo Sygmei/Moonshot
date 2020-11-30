@@ -10,6 +10,8 @@ Actions = {
 Character = {};
 
 function Object:DiscoverLadders()
+    print("Discovering Ladders");
+    Object.ladders = {};
     for k, v in pairs(Engine.Scene:getAllColliders()) do
         if v:doesHaveTag(obe.Collision.ColliderTagType.Tag, "Ladder") then
             table.insert(Object.ladders, v);
@@ -18,7 +20,12 @@ function Object:DiscoverLadders()
 end
 
 function Object:DiscoverSpikes()
-    for k, v in pairs(Engine.Scene:getAllColliders()) do
+    print("Discovering Spikes");
+    Object.spikes = {};
+    local colliders = Engine.Scene:getAllColliders();
+    print("Collider size", #colliders);
+    for k, v in pairs(colliders) do
+        print("Spike", k, v);
         if v:doesHaveTag(obe.Collision.ColliderTagType.Tag, "Spike") then
             table.insert(Object.spikes, v);
         end
@@ -26,20 +33,36 @@ function Object:DiscoverSpikes()
 end
 
 function Object:DiscoverLoots()
+    print("Discovering Loots");
+    Object.loots = {};
     for k, v in pairs(Engine.Scene:getAllGameObjects("Loot")) do
         table.insert(Object.loots, v);
     end
 end
 
 function Object:DiscoverCheckpoints()
+    print("Discovering Checkpoints");
+    Object.checkpoints = {};
     for k, v in pairs(Engine.Scene:getAllGameObjects("Checkpoint")) do
         table.insert(Object.checkpoints, v);
     end
 end
 
 function Object:DiscoverJumpers()
+    print("Discovering Jumpers");
+    Object.jumpers = {};
     for k, v in pairs(Engine.Scene:getAllGameObjects("Jumper")) do
         table.insert(Object.jumpers, v);
+    end
+end
+
+function Object:DiscoverFires()
+    print("Discovering Fires");
+    Object.fires = {};
+    for k, v in pairs(Engine.Scene:getAllColliders()) do
+        if v ~= nil and v:doesHaveTag(obe.Collision.ColliderTagType.Tag, "Fire") then
+            table.insert(Object.fires, v);
+        end
     end
 end
 
@@ -50,8 +73,11 @@ end
 
 -- Local Init Function
 function Local.Init(x, y)
+    Object.SceneNode = This.SceneNode;
     Object.sounds = {
-        spike_death = Engine.Audio:load(obe.System.Path("Sounds/spike_death.ogg"), obe.Audio.LoadPolicy.Cache)
+        burn = Engine.Audio:load(obe.System.Path("Sounds/burn.ogg"), obe.Audio.LoadPolicy.Cache),
+        spike_death = Engine.Audio:load(obe.System.Path("Sounds/spike_death.ogg"), obe.Audio.LoadPolicy.Cache),
+        loot = Engine.Audio:load(obe.System.Path("Sounds/loot.ogg"), obe.Audio.LoadPolicy.Cache)
     }
     Object.sprite_size = This.Sprite:getSize();
     --collectgarbage("stop")
@@ -68,13 +94,13 @@ function Local.Init(x, y)
     Object.checkpoint = This.SceneNode:getPosition();
 
     -- Character's Collider tags
-    This.Collider:addTag(obe.Collision.ColliderTagType.Tag, "Character");
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "NotSolid");
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Character");
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Ladder");
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Spike");
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Target");
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Projectile");
+    This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Fire");
 
     --cameraFollower = TriggerDatabase:createTriggerGroup(Private, "ActorsCamera"):addTrigger("Moved");
 
@@ -105,6 +131,9 @@ function Local.Init(x, y)
     Object.jumpers = {};
     Object:DiscoverJumpers();
 
+    Object.fires = {};
+    Object:DiscoverFires();
+
     allColliders = Engine.Scene:getAllColliders();
 
     Trajectories = obe.Collision.TrajectoryNode(This.SceneNode);
@@ -125,9 +154,7 @@ function Local.Init(x, y)
         end
         for _, spike in pairs(Object.spikes) do
             if This.Collider:doesCollide(spike, obe.Transform.UnitVector(0, 0)) then
-                print("DIEEEE");
-                Object.sounds.spike_death:play();
-                Object:respawn();
+                Character.Kill("spike_death");
             end
         end
     end);
@@ -198,8 +225,10 @@ function Local.Init(x, y)
 
     Object.modifiers = {
         bullet_through_bridge = false,
-        moon = false
+        moon = true
     };
+
+    Object.keys = {};
     -- TODO: Move this out of Character
     Object.puzzle_pieces = 0;
 end
@@ -226,14 +255,56 @@ function Event.Actions.Shoot()
     Object.shoot.Sprite:setVisible(true);
 end
 
+local moon_remover;
 function Event.Actions.CreateMoon()
-    if Object.modifiers.moon then
+    local amount_of_moons = 0;
+    for k, v in pairs(Engine.Scene:getAllGameObjects("Moon")) do
+        if not v.deleted then
+            amount_of_moons = amount_of_moons + 1;
+        end
+    end
+    if Object.modifiers.moon and amount_of_moons < 1 then
         local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getPosition()):to(obe.Transform.Units.ScenePixels);
         Engine.Scene:createGameObject("Moon") {
             x=realPos.x,
             y=realPos.y
         };
+    elseif amount_of_moons == 1 then
+        print("Release moons :D")
+        for k, v in pairs(Engine.Scene:getAllGameObjects("Moon")) do
+            v:release();
+        end
     end
+    if moon_remover == nil then
+        print("Add remover");
+        moon_remover = Engine.Events:schedule();
+        moon_remover:after(0.6):run(function()
+            for k, v in pairs(Engine.Scene:getAllGameObjects("Moon")) do
+                v:delete();
+            end
+            moon_remover = nil;
+        end);
+        print("Added remover", moon_remover);
+    end
+end
+
+-- TODO: Fix Released: RMB event
+function Event.Cursor.Release()
+    print("Ping", moon_remover)
+    if moon_remover ~= nil then
+        print("Cancel remove moon")
+        moon_remover:stop();
+        moon_remover = nil;
+    end
+end
+
+function Character.Kill(cause)
+    print("Die of", cause);
+    local death_sound = Object.sounds[cause];
+    if death_sound ~= nil then
+        death_sound:play();
+    end
+    Object:respawn();
 end
 
 function Character.Left()
@@ -247,9 +318,6 @@ function Character.Right()
 end
 
 function Character.Jump()
-    for k, v in pairs(Engine.Scene:getAllGameObjects("Moon")) do
-        v:release();
-    end
     if not Object.isJumping and not Object.isFalling then
         local jump_speed = Object.speeds.jump;
         local jump_angle = 90;
@@ -326,6 +394,7 @@ function Event.Game.Update(event)
         if This.Collider:getBoundingBox():intersects(loot.Sprite) and loot.active then
             loot.Sprite:setVisible(false);
             loot:effect(Object);
+            Object.sounds.loot:play();
             loot.active = false;
         end
     end
@@ -339,6 +408,12 @@ function Event.Game.Update(event)
             end
             checkpoint:enable();
             break;
+        end
+    end
+
+    for _, fire in pairs(Object.fires) do
+        if This.Collider:doesCollide(fire, obe.Transform.UnitVector(0, 0)) then
+            Character.Kill("burn");
         end
     end
     -- Engine.Scene:getCamera():setPosition(This.Collider:getCentroid(), obe.Transform.Referential.Center);
@@ -377,4 +452,12 @@ function Object:Move()
     end
     Trajectories:getTrajectory("Move"):setAngle(directionAngle);
     Trajectories:getTrajectory("Move"):setSpeed(directionSpeed);
+end
+
+function Event.Actions.Reset()
+    Engine.Scene:loadFromFile("Scenes/moonshot_dungeon_1.json.vili");
+end
+
+function Event.Actions.Suicide()
+    Character:Kill();
 end

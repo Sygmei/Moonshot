@@ -4,9 +4,18 @@ ORBIT_RADIUS = 200
 
 function Local.Init(x, y)
     active = true
+    Object.deleted = false;
 
     center = {x=x, y=y}
     This.Sprite:setPosition(obe.Transform.UnitVector(x,y, obe.Transform.Units.ScenePixels), obe.Transform.Referential.Center)
+end
+
+function Object:delete()
+    This.Sprite:setVisible(false);
+    active = false;
+    This.Sprite:setPosition(obe.Transform.UnitVector(-100, -100));
+    center = {x=-1000, y=-1000}
+    self.deleted = true;
 end
 
 function Object:active()
