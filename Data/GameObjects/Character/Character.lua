@@ -139,6 +139,14 @@ function Local.Init(x, y, modifiers)
     Object.direction = Directions.Right;
     Object.speeds = { walk = 1.5, run = 3, jump = 4.7};
 
+    --[[for k, v in pairs(Engine.Scene:getAllColliders()) do
+        print("Collider", k, v:getId(), v:getParentId());
+        if v:getParentId() == "tile_20" or v:getParentId() == "tile_16" then
+            Engine.Scene:removeCollider(v:getId());
+        end
+    end
+    print("New collider size", #Engine.Scene:getAllColliders());]]
+
     Object.ladders = {};
     Object:DiscoverLadders();
 

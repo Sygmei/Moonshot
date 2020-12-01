@@ -54,7 +54,9 @@ end
 function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
     Object.current_scale = 1;
     Object.target_scale = 1;
-    Object.actor = Engine.Scene:getCollider(actor);
+    if actor then
+        Object.actor = Engine.Scene:getCollider(actor);
+    end
     Object.base_clamps = {
         x_min = clamp_x_min,
         y_min = clamp_y_min,
@@ -62,7 +64,9 @@ function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
         y_max = clamp_y_max
     };
     Object.clamps = Object.base_clamps;
-    Engine.Scene:getCamera():setPosition(Object.actor:getCentroid(), obe.Transform.Referential.Center);
+    if Object.actor then
+        Engine.Scene:getCamera():setPosition(Object.actor:getCentroid(), obe.Transform.Referential.Center);
+    end
     Object.zones = getAllZones();
     Object.base_parallax_sizes = {};
     for _, sprite in pairs(Engine.Scene:getAllSprites()) do
@@ -76,6 +80,10 @@ local CAMERA_SPEED = 4;
 local CAMERA_SMOOTH = true;
 
 function Event.Game.Update(event)
+    print("Frame time / rate", event.dt, 1 / event.dt);
+    if Object.actor == nil then
+        return;
+    end
     if CAMERA_SMOOTH then
         local current_camera_position = Engine.Scene:getCamera():getPosition(obe.Transform.Referential.Center);
         local actor_position = Object.actor:getCentroid();
