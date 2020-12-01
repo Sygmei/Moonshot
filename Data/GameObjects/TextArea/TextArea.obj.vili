@@ -1,0 +1,3 @@
+TextArea:
+    Script:
+        source: "Data/GameObjects/TextArea/TextArea.lua"

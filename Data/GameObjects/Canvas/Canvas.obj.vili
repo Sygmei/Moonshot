@@ -1,0 +1,6 @@
+Canvas:
+    Sprite:
+        layer: -1
+        zdepth: 0
+    Script:
+        source: "Data/GameObjects/Canvas/Canvas.lua"
