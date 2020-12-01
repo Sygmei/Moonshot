@@ -70,7 +70,7 @@ function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
     Object.zones = getAllZones();
     Object.base_parallax_sizes = {};
     for _, sprite in pairs(Engine.Scene:getAllSprites()) do
-        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" then
+        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" or sprite:getPositionTransformer():getXTransformerName() == "Position"  then
             Object.base_parallax_sizes[sprite:getId()] = sprite:getSize();
         end
     end
@@ -116,7 +116,7 @@ function Event.Game.Update(event)
     Engine.Scene:getCamera():setSize(Object.current_scale, obe.Transform.Referential.Center);
     allSprites = Engine.Scene:getAllSprites()
     for _, sprite in pairs(allSprites) do
-        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" then
+        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" or sprite:getPositionTransformer():getXTransformerName() == "Position" then
             local base_size = Object.base_parallax_sizes[sprite:getId()];
             sprite:setSize(base_size*Object.current_scale);
         end
