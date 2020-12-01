@@ -2127,6 +2127,17 @@ GameObjects:
             state: true
             
         
+    teleport: 
+        type: "Teleport"
+        Requires: 
+            x: 348.48486328125
+            y: 2554.54541015625
+            width: 0.0
+            height: 0.0
+            rotation: 0.0
+            destination: "moonshot_credit.json.vili"
+            
+        
     portcullis_1: 
         type: "Portcullis"
         Requires: 

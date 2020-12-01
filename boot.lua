@@ -1,3 +1,3 @@
 function Game.Start()
-    Engine.Scene:loadFromFile("Scenes/moonshot_dungeon_2.json.vili");
+    Engine.Scene:loadFromFile("Scenes/MadeWithObEngine.map.vili");
 end

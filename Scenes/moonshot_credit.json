@@ -529,6 +529,11 @@
                          "name":"Commands",
                          "type":"string",
                          "value":"P1"
+                        }, 
+                        {
+                         "name":"modifiers",
+                         "type":"string",
+                         "value":"moon"
                         }],
                  "rotation":0,
                  "type":"Character",
@@ -1142,7 +1147,7 @@
  "nextobjectid":203,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.4.3",
+ "tiledversion":"1.4.2",
  "tileheight":200,
  "tilesets":[
         {

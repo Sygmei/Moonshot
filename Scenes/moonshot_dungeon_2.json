@@ -681,6 +681,24 @@
                  "width":200,
                  "x":9000,
                  "y":6800
+                }, 
+                {
+                 "height":0,
+                 "id":116,
+                 "name":"teleport",
+                 "point":true,
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"moonshot_credit.json.vili"
+                        }],
+                 "rotation":0,
+                 "type":"Teleport",
+                 "visible":true,
+                 "width":0,
+                 "x":348.484848484848,
+                 "y":2554.54545454545
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2114,7 +2132,7 @@
          "y":0
         }],
  "nextlayerid":17,
- "nextobjectid":116,
+ "nextobjectid":117,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",
