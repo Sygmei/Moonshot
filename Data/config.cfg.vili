@@ -9,6 +9,7 @@ Window:
         fullscreen: false
         width: 1920
         height: 1080
+        resizeable: false
 
 GameConfig:
     antiAliasing: true

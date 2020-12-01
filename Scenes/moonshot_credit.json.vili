@@ -1863,6 +1863,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
+            allow_multiple_successes: true
             trigger: "textarea_7"
             
         
@@ -1874,6 +1875,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
+            allow_multiple_successes: true
             trigger: "textarea_6"
             
         
@@ -1885,6 +1887,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
+            allow_multiple_successes: true
             trigger: "textarea_5"
             
         
@@ -1896,6 +1899,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
+            allow_multiple_successes: true
             trigger: "multi_cluster_1"
             
         
@@ -1907,6 +1911,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
+            allow_multiple_successes: true
             trigger: "textarea_3"
             
         
@@ -1918,6 +1923,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
+            allow_multiple_successes: true
             trigger: "textarea_2"
             
         
@@ -1929,6 +1935,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
+            allow_multiple_successes: true
             trigger: "textarea_4"
             
         

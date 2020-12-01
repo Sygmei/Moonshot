@@ -891,6 +891,18 @@
                  "width":0,
                  "x":200,
                  "y":0
+                }, 
+                {
+                 "height":0,
+                 "id":121,
+                 "name":"gameManager",
+                 "point":true,
+                 "rotation":0,
+                 "type":"GameManager",
+                 "visible":true,
+                 "width":0,
+                 "x":400,
+                 "y":0
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2073,7 +2085,7 @@
          "y":0
         }],
  "nextlayerid":24,
- "nextobjectid":121,
+ "nextobjectid":122,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.4.2",

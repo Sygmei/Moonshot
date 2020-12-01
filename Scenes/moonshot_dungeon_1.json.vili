@@ -2216,6 +2216,16 @@ GameObjects:
             track: "moonshot_theme_1.ogg"
             
         
+    gameManager: 
+        type: "GameManager"
+        Requires: 
+            x: 400.0
+            y: 0.0
+            width: 0.0
+            height: 0.0
+            rotation: 0.0
+            
+        
     bullet_through_bridge: 
         type: "Loot"
         Requires: 

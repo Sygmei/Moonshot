@@ -1,0 +1,15 @@
+GameManager:
+    Sprite:
+        rect:
+            x: 0
+            y: 0
+            width: 1
+            height: 1
+            unit: "ViewPercentage"
+        layer: -10
+        transform:
+            x: "Position"
+            y: "Position"
+    Script:
+        source: "Data/GameObjects/GameManager/GameManager.lua"
+    permanent: true

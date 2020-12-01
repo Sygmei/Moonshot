@@ -10,6 +10,7 @@ LOOT_DB = {
         image = "Sprites/Loot/puzzle_piece.png",
         effect = function(self, character)
             character.puzzle_pieces = character.puzzle_pieces + 1;
+            Engine.Scene:getGameObject("gameManager"):puzzle_piece_obtained();
             print(character.puzzle_pieces);
         end
     },

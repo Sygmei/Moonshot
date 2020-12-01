@@ -368,6 +368,7 @@ function Character.Kill(cause)
     if death_sound ~= nil then
         death_sound:play();
     end
+    Engine.Scene:getGameObject("gameManager"):death();
     Object:respawn();
 end
 
