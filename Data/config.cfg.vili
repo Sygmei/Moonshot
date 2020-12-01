@@ -15,15 +15,7 @@ GameConfig:
 
 Input:
     game:
-        CameraLeft: "Hold: Left"
-        CameraRight: "Hold: Right"
-        CameraUp: "Hold: Up"
-        CameraDown: "Hold: Down"
-        CameraZoom: "Pressed: MouseWheelUp"
-        CameraUnzoom: "Pressed: MouseWheelDown"
-        MoveSpriteTo: "Pressed: RMB"
-        UseTile: "Pressed: MMB"
-        Left: "Hold: Q"
+        Left: ["Hold: Q", "Hold:A"]
         Right: "Hold: D"
         Jump: "Pressed: Space"
         Shoot: "Pressed: LMB"
@@ -38,6 +30,7 @@ Input:
         ]
         Reset: "Pressed: R"
         Suicide: "Pressed: K"
+        Continue: "Pressed: Return"
 
 Debug:
     Logging:

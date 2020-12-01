@@ -1,0 +1,5 @@
+LootSpawner:
+    Script:
+        source:"Data/GameObjects/LootSpawner/LootSpawner.lua"
+
+

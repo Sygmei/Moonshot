@@ -31,6 +31,6 @@ GameObjects:
     madeWithObEngine:
         type:"MadeWithObEngine"
         Requires:
-            next_scene: "Scenes/main_menu.vili"
+            next_scene: "Scenes/disclaimer.map.vili"
 
 

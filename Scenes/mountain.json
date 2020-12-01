@@ -1,0 +1,14 @@
+{ "columns":10,
+ "image":"..\/Sprites\/Spritesheets\/mountain.png",
+ "imageheight":2400,
+ "imagewidth":2000,
+ "margin":0,
+ "name":"mountain",
+ "spacing":0,
+ "tilecount":120,
+ "tiledversion":"1.4.2",
+ "tileheight":200,
+ "tilewidth":200,
+ "type":"tileset",
+ "version":1.4
+}

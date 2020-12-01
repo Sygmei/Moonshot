@@ -22,6 +22,7 @@ end
 function Object:hit()
     print("Hit target", Object.id);
     This.Sprite:setColor(obe.Graphics.Color(100, 100, 255));
+    scheduleBackToNormal();
     Object.sound:play();
     if Object.cluster == nil then
         return

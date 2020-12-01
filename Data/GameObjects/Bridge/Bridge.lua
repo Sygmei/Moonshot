@@ -7,6 +7,7 @@ local DISABLED_BRIDGE_RIGHT_TILE_ID = 5;
 
 function setBridgeState(enabled)
     local new_state = Object.state ~= enabled;
+    print(Object.id, "new state is", new_state);
     local max_x = Object.tile_x + Object.bridge_width - 1;
     local max_y = Object.tile_y + Object.bridge_height - 1;
     local BRIDGE_TILE_OFFSET = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();

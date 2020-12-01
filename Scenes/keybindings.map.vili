@@ -1,0 +1,17 @@
+Meta:
+    name:"Keybindings"
+
+View:
+    size: 1.0
+    position:
+        x: 0.0
+        y: 0.0
+    referential: TopLeft
+
+GameObjects:
+    splash:
+        type: "Splashscreen"
+        Requires:
+            image: "keybindings.png"
+            next_scene: "main_menu.map.vili"
+

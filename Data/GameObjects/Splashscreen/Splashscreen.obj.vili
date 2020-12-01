@@ -1,0 +1,13 @@
+Splashscreen:
+    Sprite:
+        rect:
+            x: 0
+            y: 0
+            width: 1
+            height: 1
+            unit: "ViewPercentage"
+        layer: 0
+    Script:
+        sources:[
+            "Data/GameObjects/Splashscreen/Splashscreen.lua"
+            ]

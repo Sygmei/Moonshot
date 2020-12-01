@@ -1,6 +1,7 @@
-local NORMAL_SPEED = 7
+local NORMAL_SPEED = 6
 local ORBIT_SPEED = 1
 local SPEED = NORMAL_SPEED --pxl/s
+local LIFETIME = 10;
 
 State = {
     FREE = 0,
@@ -16,6 +17,11 @@ local MAX_LIFETIME = 3;
 Object.inactive = true;
 
 function Local.Init(x, y, vecInit, through_bridge)
+    local TILES = Engine.Scene:getTiles();
+    local tile_size = obe.Transform.UnitVector(TILES:getWidth() * TILES:getTileWidth(), TILES:getHeight() * TILES:getTileHeight(), obe.Transform.Units.ScenePixels):to(obe.Transform.Units.SceneUnits);
+    Object.bounds = obe.Transform.Rect();
+    Object.bounds:setSize(tile_size);
+    Object.clock = 0;
     Object.inactive = false;
     Object.through_bridge = through_bridge or false;
     targets = {}
@@ -100,9 +106,18 @@ local function followCircle(circle, dt)
     center.y = circle.radius*math.sin(t*angularVelocity+initialAngle) + circle.y
 end
 
+function Object:delete()
+    This.Sprite:setVisible(false);
+    Object.inactive = true;
+end
+
 function Event.Game.Update(event)
     if Object.inactive then
         return;
+    end
+    Object.clock = Object.clock + event.dt;
+    if Object.clock > LIFETIME then
+        Object:delete();
     end
 
     if state == State.ORBIT then
@@ -148,10 +163,15 @@ function Event.Game.Update(event)
             return
         end
     end
-    local collisions = This.Collider:doesCollide(obe.Transform.UnitVector(0, 0)).colliders;
+    local collisions = This.Collider:getMaximumDistanceBeforeCollision(obe.Transform.UnitVector(center.x - oldCenter.x, center.y - oldCenter.y)).colliders;
     if #collisions ~= 0 then
         This.Sprite:setVisible(false);
         Object.inactive = true;
     end
-    This.SceneNode:setPosition(obe.Transform.UnitVector(center.x, center.y), obe.Transform.Referential.Center)
+    local next_position = obe.Transform.UnitVector(center.x, center.y);
+    if not Object.bounds:contains(next_position) then
+        Object:delete();
+    else
+        This.SceneNode:setPosition(next_position, obe.Transform.Referential.Center);
+    end
 end

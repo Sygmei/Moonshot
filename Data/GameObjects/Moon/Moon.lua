@@ -1,5 +1,6 @@
-CAPTATION_RADIUS = 0.9
-ORBIT_RADIUS = 0.37
+local CAPTATION_RADIUS = 0.9;
+local ORBIT_RADIUS = 0.37;
+local SENSIBILITY = 0.0037 * 2;
 
 
 function Local.Init(x, y)
@@ -33,7 +34,7 @@ end
 
 local function inDist(x, y, radius)
     local dist = math.sqrt((x-center.x)*(x-center.x)+(y-center.y)*(y-center.y))
-    if dist <= radius+0.0037 then
+    if dist <= radius + SENSIBILITY then
         return true
     end
     return false

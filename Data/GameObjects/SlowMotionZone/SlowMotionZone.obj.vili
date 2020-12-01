@@ -1,0 +1,3 @@
+SlowMotionZone:
+    Script:
+        source: "Data/GameObjects/SlowMotionZone/SlowMotionZone.lua"

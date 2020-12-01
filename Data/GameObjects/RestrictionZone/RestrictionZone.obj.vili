@@ -1,0 +1,3 @@
+RestrictionZone:
+    Script:
+        source: "Data/GameObjects/RestrictionZone/RestrictionZone.lua"

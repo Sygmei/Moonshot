@@ -52,12 +52,6 @@ function setClamps()
 end
 
 function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
-    Object.ost = Engine.Audio:load(obe.System.Path("Sounds/Moonshot_OST__Field_Unmastered.mp3"), obe.Audio.LoadPolicy.Stream);
-    Object.ost:setVolume(0.2);
-    Object.ost:setLooping(true);
-    Object.ost:play();
-
-
     Object.current_scale = 1;
     Object.target_scale = 1;
     Object.actor = Engine.Scene:getCollider(actor);
@@ -70,8 +64,11 @@ function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
     Object.clamps = Object.base_clamps;
     Engine.Scene:getCamera():setPosition(Object.actor:getCentroid(), obe.Transform.Referential.Center);
     Object.zones = getAllZones();
-    if Engine.Scene:doesSpriteExists("grotte_0") then
-        Object.cave_size = Engine.Scene:getSprite("grotte_0"):getSize();
+    Object.base_parallax_sizes = {};
+    for _, sprite in pairs(Engine.Scene:getAllSprites()) do
+        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" then
+            Object.base_parallax_sizes[sprite:getId()] = sprite:getSize();
+        end
     end
 end
 
@@ -111,51 +108,13 @@ function Event.Game.Update(event)
     Engine.Scene:getCamera():setSize(Object.current_scale, obe.Transform.Referential.Center);
     allSprites = Engine.Scene:getAllSprites()
     for _, sprite in pairs(allSprites) do
-        if string.match(sprite:getId(), "grotte") then
-            sprite:setSize(Object.cave_size*Object.current_scale);
+        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" then
+            local base_size = Object.base_parallax_sizes[sprite:getId()];
+            sprite:setSize(base_size*Object.current_scale);
         end
     end
 end
 
 function Event.Actions.ToggleCameraSmoothing()
     CAMERA_SMOOTH = not CAMERA_SMOOTH;
-end
-
-function Event.Actions.CameraLeft(event)
-    local dt = Engine.Framerate:getGameSpeed();
-    local movement = obe.Transform.UnitVector(dt * -CAMERA_SPEED, 0);
-    Engine.Scene:getCamera():move(movement);
-end
-
-function Event.Actions.CameraRight(event)
-    local dt = Engine.Framerate:getGameSpeed();
-    local movement = obe.Transform.UnitVector(dt * CAMERA_SPEED, 0);
-    Engine.Scene:getCamera():move(movement);
-end
-
-function Event.Actions.CameraUp(event)
-    local dt = Engine.Framerate:getGameSpeed();
-    local movement = obe.Transform.UnitVector(0, dt * -CAMERA_SPEED);
-    Engine.Scene:getCamera():move(movement);
-end
-
-function Event.Actions.CameraDown(event)
-    local dt = Engine.Framerate:getGameSpeed();
-    local movement = obe.Transform.UnitVector(0, dt * CAMERA_SPEED);
-    Engine.Scene:getCamera():move(movement);
-end
-
-function Event.Actions.CameraZoom(event)
-    Engine.Scene:getCamera():scale(0.95, obe.Transform.Referential.Center);
-
-    print("Zoom Camera Position (from center)", Engine.Scene:getCamera():getPosition(obe.Transform.Referential.Center):to(obe.Transform.Units.SceneUnits));
-end
-
-function Event.Actions.CameraUnzoom(event)
-    Engine.Scene:getCamera():scale(1.05, obe.Transform.Referential.Center);
-    print("Unzoom Camera Position (from center)", Engine.Scene:getCamera():getPosition(obe.Transform.Referential.Center):to(obe.Transform.Units.SceneUnits));
-end
-
-function Local.Delete()
-    Object.ost:stop();
 end

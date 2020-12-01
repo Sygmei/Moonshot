@@ -25,7 +25,6 @@ function Object:DiscoverSpikes()
     local colliders = Engine.Scene:getAllColliders();
     print("Collider size", #colliders);
     for k, v in pairs(colliders) do
-        print("Spike", k, v);
         if v:doesHaveTag(obe.Collision.ColliderTagType.Tag, "Spike") then
             table.insert(Object.spikes, v);
         end
@@ -66,18 +65,42 @@ function Object:DiscoverFires()
     end
 end
 
+function Object:DiscoverRestrictions()
+    print("Discovering Restrictions");
+    Object.restrictions = {};
+    for k, v in pairs(Engine.Scene:getAllGameObjects("RestrictionZone")) do
+        table.insert(Object.restrictions, v);
+    end
+end
+
+function Object:DiscoverSlowmotions()
+    print("Discovering Slowmotions");
+    Object.slowmotions = {};
+    for k, v in pairs(Engine.Scene:getAllGameObjects("SlowMotionZone")) do
+        table.insert(Object.slowmotions, v);
+    end
+end
+
 function Object:respawn()
     print("Respawn to", self.checkpoint);
     This.SceneNode:setPosition(self.checkpoint);
 end
 
+function Object:applyModifiers(modifiers)
+    for modifier in modifiers:gmatch("(.-),") do
+        print("Applying modifier", modifier);
+        self.modifiers[modifier] = true;
+    end
+end
+
 -- Local Init Function
-function Local.Init(x, y)
+function Local.Init(x, y, modifiers)
     Object.SceneNode = This.SceneNode;
     Object.sounds = {
         burn = Engine.Audio:load(obe.System.Path("Sounds/burn.ogg"), obe.Audio.LoadPolicy.Cache),
         spike_death = Engine.Audio:load(obe.System.Path("Sounds/spike_death.ogg"), obe.Audio.LoadPolicy.Cache),
-        loot = Engine.Audio:load(obe.System.Path("Sounds/loot.ogg"), obe.Audio.LoadPolicy.Cache)
+        loot = Engine.Audio:load(obe.System.Path("Sounds/loot.ogg"), obe.Audio.LoadPolicy.Cache),
+        restriction = Engine.Audio:load(obe.System.Path("Sounds/invalid.ogg"), obe.Audio.LoadPolicy.Cache)
     }
     Object.sprite_size = This.Sprite:getSize();
     --collectgarbage("stop")
@@ -133,6 +156,13 @@ function Local.Init(x, y)
 
     Object.fires = {};
     Object:DiscoverFires();
+
+    Object.restrictions = {};
+    Object:DiscoverRestrictions();
+
+    Object.slowmotions = {};
+    Object:DiscoverSlowmotions();
+    Object.slowed = false;
 
     allColliders = Engine.Scene:getAllColliders();
 
@@ -225,22 +255,45 @@ function Local.Init(x, y)
 
     Object.modifiers = {
         bullet_through_bridge = false,
-        moon = true
+        moon = false,
+        projectile_count = 4
     };
+    if modifiers then
+        Object:applyModifiers(modifiers .. ",");
+    end
 
     Object.keys = {};
     -- TODO: Move this out of Character
     Object.puzzle_pieces = 0;
 end
 
-function Event.Actions.UseTile()
-    local cursor_position = Engine.Cursor:getPosition():to(obe.Transform.Units.ScenePixels);
-    local camera_position = Engine.Scene:getCamera():getPosition():to(obe.Transform.Units.ScenePixels);
-    local final_position = camera_position + cursor_position;
-    This.SceneNode:setPosition(final_position);
+function count_projectile()
+    local count = 0;
+    for k, v in pairs(Engine.Scene:getAllGameObjects("Projectile")) do
+        if not v.inactive then
+            count = count + 1;
+        end
+    end
+    return count;
+end
+
+function checkRestriction(restriction)
+    for k, v in pairs(Object.restrictions) do
+        if v.Zone:intersects(This.Collider:getBoundingBox()) and v.restriction == restriction then
+            return true;
+        end
+    end
+    return false;
 end
 
 function Event.Actions.Shoot()
+    if count_projectile() >= Object.modifiers.projectile_count then
+        return;
+    end
+    if checkRestriction("projectile") then
+        Object.sounds.restriction:play();
+        return;
+    end
     local cursorPos = Engine.Cursor:getPosition():to(obe.Transform.Units.SceneUnits);
     local pos = This.Collider:getCentroid()
     local relPos = pos - Engine.Scene:getCamera():getPosition():to(obe.Transform.Units.SceneUnits);
@@ -264,6 +317,10 @@ function Event.Actions.CreateMoon()
         end
     end
     if Object.modifiers.moon and amount_of_moons < 1 then
+        if checkRestriction("moon") then
+            Object.sounds.restriction:play();
+            return;
+        end
         local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getPosition());
         Engine.Scene:createGameObject("Moon") {
             x=realPos.x,
@@ -290,7 +347,6 @@ end
 
 -- TODO: Fix Released: RMB event
 function Event.Cursor.Release()
-    print("Ping", moon_remover)
     if moon_remover ~= nil then
         print("Cancel remove moon")
         moon_remover:stop();
@@ -355,11 +411,21 @@ local last_anim = "";
 -- Local Update Function
 function Event.Game.Update(event)
     -- print(This.Collider:getCentroid(), This.Sprite:getPosition(), This.Sprite:getSize());
-    Trajectories:update(event.dt);
+    local dt = event.dt;
+    local slowed = false;
+    for k, v in pairs(Object.slowmotions) do
+        if v.Zone:intersects(This.Collider:getBoundingBox()) then
+            dt = dt * v.factor;
+            slowed = true;
+            break;
+        end
+    end
+    Object.slowed = slowed;
+    Trajectories:update(dt);
 
     -- Moving Character
     if last_anim ~= This.Animator:getKey() then
-        print(last_anim, "=>", This.Animator:getKey());
+        -- print(last_anim, "=>", This.Animator:getKey());
         last_anim = This.Animator:getKey();
     end
     if Object.isFalling then
@@ -415,6 +481,10 @@ function Event.Game.Update(event)
         if This.Collider:doesCollide(fire, obe.Transform.UnitVector(0, 0)) then
             Character.Kill("burn");
         end
+    end
+    if #This.Collider:doesCollide(obe.Transform.UnitVector(0, 0)).colliders > 0 then
+        print("Unstuck from ground !");
+        This.SceneNode:move(obe.Transform.UnitVector(0, -0.01)); -- Unstuck from ground
     end
     -- Engine.Scene:getCamera():setPosition(This.Collider:getCentroid(), obe.Transform.Referential.Center);
 end

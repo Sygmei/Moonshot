@@ -8,7 +8,7 @@ function Local.Init(x, y, angle, speed, state)
     Object.speed = speed or 7;
     This.Sprite:setPosition(obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels) - obe.Transform.UnitVector(0, This.Sprite:getSize().y), obe.Transform.Referential.TopLeft);
     if not Object.active then
-        This.Sprite:setColor(obe.Graphics.Color.Gray);
+        This.Sprite:setColor(obe.Graphics.Color(255, 255, 255, 50));
     end
 end
 
@@ -19,7 +19,7 @@ end
 
 function Object:failure()
     Object.active = false;
-    This.Sprite:setColor(obe.Graphics.Color.Gray);
+    This.Sprite:setColor(obe.Graphics.Color(255, 255, 255, 50));
 end
 
 function Object:use()
