@@ -17,16 +17,16 @@ function Local.Init()
         texture = "Sprites/skull.png",
         x = 0,
         y = 0,
-        width = 64,
-        height = 64,
+        width = 48,
+        height = 48,
         unit = obe.Transform.Units.ScenePixels
     };
     Object.deaths_text = Object.canvas:Text "deaths" {
         text = "Deaths : " .. tostring(Object.deaths),
-        size = 32,
+        size = 22,
         color = obe.Graphics.Color.White,
-        x = 80,
-        y = 32,
+        x = 60,
+        y = 24,
         align = {
             vertical = "Center"
         },
@@ -37,17 +37,17 @@ function Local.Init()
     Object.puzzle_pieces_icon = Object.canvas:Rectangle "puzzle_piece_icon" {
         texture = "Sprites/Loot/puzzle_piece.png",
         x = 0,
-        y = 76,
-        width = 64,
-        height = 64,
+        y = 60,
+        width = 48,
+        height = 48,
         unit = obe.Transform.Units.ScenePixels
     };
     Object.puzzle_pieces_text = Object.canvas:Text "puzzle_pieces" {
         text = "Puzzle pieces : " .. tostring(Object.puzzle_pieces),
-        size = 32,
+        size = 22,
         color = obe.Graphics.Color.White,
-        x = 80,
-        y = 32 + 76,
+        x = 60,
+        y = 24 + 60,
         align = {
             vertical = "Center"
         },

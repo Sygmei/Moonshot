@@ -1,3 +1,4 @@
 function Game.Start()
-    Engine.Scene:loadFromFile("Scenes/moonshot_dungeon_1.json.vili");
+    -- Engine.Window:setIcon("Sprites/icon.png");
+    Engine.Scene:loadFromFile("Scenes/MadeWithObEngine.map.vili");
 end

@@ -581,40 +581,6 @@ Tiles:
                 tag: "Bridge",
                 unit: "ScenePixels"
                 }, {
-                id: 15,
-                points: [{
-                    x: 50,
-                    y: 95
-                    }, {
-                    x: 200,
-                    y: 95
-                    }, {
-                    x: 200,
-                    y: 120
-                    }, {
-                    x: 50,
-                    y: 120
-                    }],
-                tag: "Spike",
-                unit: "ScenePixels"
-                }, {
-                id: 16,
-                points: [{
-                    x: 0,
-                    y: 95
-                    }, {
-                    x: 160,
-                    y: 95
-                    }, {
-                    x: 160,
-                    y: 120
-                    }, {
-                    x: 0,
-                    y: 120
-                    }],
-                tag: "Spike",
-                unit: "ScenePixels"
-                }, {
                 id: 17,
                 points: [{
                     x: 110,

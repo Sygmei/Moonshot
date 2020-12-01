@@ -18,7 +18,7 @@ Input:
     game:
         Left: ["Hold: Q", "Hold:A"]
         Right: "Hold: D"
-        Jump: "Pressed: Space"
+        Jump: "Hold: Space"
         Shoot: "Pressed: LMB"
         CreateMoon: "Pressed: RMB"
         CancelRemoveMoon: "Released: RMB"
