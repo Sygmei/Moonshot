@@ -77,7 +77,7 @@ function Object:check()
 end
 
 function Event.Cursor.Press(event)
-    if inputSprite:contains(Engine.Cursor:getPosition()) then
+    if inputSprite:contains(Engine.Cursor:getScenePosition()) then
         print("Select :D")
         select()
     else

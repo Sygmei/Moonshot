@@ -55,6 +55,13 @@ function Local.Init()
     }
 end
 
+function Object:reset()
+    self.deaths = 0;
+    self.puzzle_pieces = 0;
+    self.deaths_text.text = "Deaths : " .. tostring(Object.deaths);
+    self.puzzle_pieces_text.text = "Puzzle pieces : " .. tostring(Object.puzzle_pieces);
+end
+
 function Object:death()
     self.deaths = self.deaths + 1;
     self.deaths_text.text = "Deaths : " .. tostring(Object.deaths);

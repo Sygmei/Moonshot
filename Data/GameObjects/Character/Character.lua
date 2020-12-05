@@ -302,7 +302,7 @@ function Event.Actions.Shoot()
         Object.sounds.restriction:play();
         return;
     end
-    local cursorPos = Engine.Cursor:getPosition():to(obe.Transform.Units.SceneUnits);
+    local cursorPos = Engine.Cursor:getScenePosition():to(obe.Transform.Units.SceneUnits);
     local pos = This.Collider:getCentroid()
     local relPos = pos - Engine.Scene:getCamera():getPosition():to(obe.Transform.Units.SceneUnits);
     local vecInit = obe.Transform.UnitVector(cursorPos.x - relPos.x, cursorPos.y - relPos.y);
@@ -329,7 +329,7 @@ function Event.Actions.CreateMoon()
             Object.sounds.restriction:play();
             return;
         end
-        local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getPosition());
+        local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getScenePosition());
         Engine.Scene:createGameObject("Moon") {
             x=realPos.x,
             y=realPos.y
@@ -535,6 +535,7 @@ end
 
 function Event.Actions.Reset()
     Engine.Scene:loadFromFile("Scenes/moonshot_dungeon_1.json.vili");
+    Engine.Scene:getGameObject("gameManager"):reset();
 end
 
 function Event.Actions.Suicide()

@@ -18,10 +18,10 @@ function Local.Init(x, y, width, height, name)
     This.Sprite:setSize(obe.Transform.UnitVector(width, height, obe.Transform.Units.ViewPercentage));
 end
 
-function Event.Cursor.Press()
-    print("Cursor", Engine.Cursor:getPosition());
+function Event.Actions.UiClick()
+    print("Cursor", Engine.Cursor:getScenePosition());
     print("Button", This.Sprite:getPosition(), This.Sprite:getSize());
-    if This.Sprite:contains(Engine.Cursor:getPosition()) then
+    if This.Sprite:contains(Engine.Cursor:getScenePosition()) then
         print("Clicked button", Object.name);
         Actions[Object.name]();
     end

@@ -2115,6 +2115,18 @@ GameObjects:
             name: "puzzle_piece"
             
         
+    jumper_122: 
+        type: "Jumper"
+        Requires: 
+            x: 7800.0
+            y: 7800.0
+            width: 200.0
+            height: 200.0
+            rotation: 0.0
+            speed: 8.0
+            state: true
+            
+        
     portcullis_1: 
         type: "Portcullis"
         Requires: 

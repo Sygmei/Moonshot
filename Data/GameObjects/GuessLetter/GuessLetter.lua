@@ -51,7 +51,11 @@ function Object:setCluster(cluster, index)
 end
 
 function scheduleBackToNormal()
-    Engine.Events:schedule():after(2):run(function()
+    if Object.scheduler then
+        Object.scheduler:stop();
+    end
+    Object.scheduler = Engine.Events:schedule();
+    Object.scheduler:after(2):run(function()
         This.Sprite:setColor(obe.Graphics.Color.White);
     end);
 end
@@ -70,4 +74,10 @@ function Object:failure()
     end
     This.Sprite:setColor(obe.Graphics.Color.Red);
     scheduleBackToNormal();
+end
+
+function Local.Delete()
+    if Object.scheduler then
+        Object.scheduler:stop();
+    end
 end

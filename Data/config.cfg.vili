@@ -1,7 +1,7 @@
 Framerate:
     framerateLimit: true
-    framerateTarget: 165
-    vsync: true
+    framerateTarget: 120
+    vsync: false
 
 Window:
     Game:
@@ -18,7 +18,8 @@ Input:
     game:
         Left: ["Hold: Q", "Hold:A"]
         Right: "Hold: D"
-        Jump: "Hold: Space"
+        Jump: "Pressed: Space"
+        UiClick: "Pressed: LMB"
         Shoot: "Pressed: LMB"
         CreateMoon: "Pressed: RMB"
         CancelRemoveMoon: "Released: RMB"
@@ -35,4 +36,4 @@ Input:
 
 Debug:
     Logging:
-        level: debug
+        level: info
