@@ -1,3 +1,2 @@
-Portcullis:
-    Script:
-        source: "Data/GameObjects/Portcullis/Portcullis.lua"
+Script:
+    source: "self://Portcullis.lua"

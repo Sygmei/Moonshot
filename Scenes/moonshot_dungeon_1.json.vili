@@ -2168,7 +2168,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
-            destination: "moonshot_dungeon_2.json.vili"
+            destination: "scenes://moonshot_dungeon_2.json.vili"
             
         
     musicManager: 

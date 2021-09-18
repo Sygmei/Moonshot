@@ -12,7 +12,11 @@ function Local.Init(x, y)
 end
 
 function Object:delete()
-    This:deleteObject();
+    This.Sprite:setVisible(false);
+    active = false;
+    This.Sprite:setPosition(obe.Transform.UnitVector(-100, -100));
+    center = {x=-1000, y=-1000}
+    self.deleted = true;
 end
 
 function Object:active()

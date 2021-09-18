@@ -10,7 +10,8 @@ function setBridgeState(enabled)
     print(Object.id, "new state is", new_state);
     local max_x = Object.tile_x + Object.bridge_width - 1;
     local max_y = Object.tile_y + Object.bridge_height - 1;
-    local BRIDGE_TILE_OFFSET = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();
+    local BRIDGE_TILE_OFFSET = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock")
+        :getFirstTileId();
     for x = Object.tile_x, max_x, 1 do
         for y = Object.tile_y, max_y, 1 do
             local tile_id;
@@ -37,7 +38,6 @@ function setBridgeState(enabled)
     end
 end
 
-
 function Local.Init(x, y, width, height, state)
     print("Bridge initialized");
     Object.state = state or false;
@@ -63,7 +63,8 @@ function Object:success()
     local character = Engine.Scene:getGameObject("character");
     local bbox = character.Collider:getBoundingBox();
     if bbox:intersects(Object.rect) then
-        local offset = Object.rect:getPosition(obe.Transform.Referential.Top) - bbox:getPosition(obe.Transform.Referential.Bottom);
+        local offset = Object.rect:getPosition(obe.Transform.Referential.Top) -
+                           bbox:getPosition(obe.Transform.Referential.Bottom);
         character.SceneNode:move(obe.Transform.UnitVector(0, offset.y));
     end
 end

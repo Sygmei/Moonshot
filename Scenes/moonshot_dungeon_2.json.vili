@@ -2101,7 +2101,7 @@ GameObjects:
             width: 0.0
             height: 0.0
             rotation: 0.0
-            destination: "moonshot_credit.json.vili"
+            destination: "scenes://moonshot_credit.json.vili"
             
         
     puzzle_piece_102: 

@@ -1,3 +1,2 @@
-Camera:
-    Script:
-        source: "Data/GameObjects/Camera/Camera.lua"
+Script:
+    source: "self://Camera.lua"

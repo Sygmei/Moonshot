@@ -1,14 +1,13 @@
-GuessLetter:
-    Script:
-        source: "Data/GameObjects/GuessLetter/GuessLetter.lua"
-    Sprite:
-        path:"Sprites/Key_Interrogation.png"
-        rect:
-            x:0.0
-            y:0.0
-            width:0.3703703703703704
-            height:0.3703703703703704
-            unit:"SceneUnits"
-            referential: "Center"
-        zdepth: 1
-        layer: 1
+Script:
+    source: "self://GuessLetter.lua"
+Sprite:
+    path: "sprites://Key_Interrogation.png"
+    rect:
+        x: 0.0
+        y: 0.0
+        width: 0.3703703703703704
+        height: 0.3703703703703704
+        unit: "SceneUnits"
+        referential: "Center"
+    zdepth: 1
+    layer: 1

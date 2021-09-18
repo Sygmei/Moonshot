@@ -4,5 +4,5 @@ function Local.Init(image, next_scene)
 end
 
 function Event.Actions.Continue()
-    Engine.Scene:loadFromFile("Scenes/" .. Object.next_scene);
+    Engine.Scene:loadFromFile(Object.next_scene);
 end

@@ -1,3 +1,2 @@
-RestrictionZone:
-    Script:
-        source: "Data/GameObjects/RestrictionZone/RestrictionZone.lua"
+Script:
+    source: "self://RestrictionZone.lua"

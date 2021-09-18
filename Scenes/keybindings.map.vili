@@ -13,5 +13,5 @@ GameObjects:
         type: "Splashscreen"
         Requires:
             image: "keybindings.png"
-            next_scene: "main_menu.map.vili"
+            next_scene: "scenes://main_menu.map.vili"
 

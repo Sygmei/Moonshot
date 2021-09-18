@@ -1,3 +1,2 @@
-SlowMotionZone:
-    Script:
-        source: "Data/GameObjects/SlowMotionZone/SlowMotionZone.lua"
+Script:
+    source: "self://SlowMotionZone.lua"

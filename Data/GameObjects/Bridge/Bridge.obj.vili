@@ -1,3 +1,2 @@
-Bridge:
-    Script:
-        source: "Data/GameObjects/Bridge/Bridge.lua"
+Script:
+    source: "self://Bridge.lua"

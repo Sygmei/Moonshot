@@ -1,14 +1,13 @@
-Fade:
-    Sprite:
-        transform: CameraTransform
-        layer: 0
-        zdepth: 0
-        rect: Rect {
-            width: 1.0,
-            height: 1.0,
-            unit: ViewPercentage
-        }
-    Script:
-        source:"Data/GameObjects/Fade/Fade.lua"
+Sprite:
+    transform: CameraTransform
+    layer: 0
+    zdepth: 0
+    rect: Rect {
+        width: 1.0,
+        height: 1.0,
+        unit: ViewPercentage
+    }
+Script:
+    source: "self://Fade.lua"
 
 

@@ -1,3 +1,2 @@
-Waterfall:
-    Script:
-        source: "Data/GameObjects/Waterfall/Waterfall.lua"
+Script:
+    source: "self://Waterfall.lua"

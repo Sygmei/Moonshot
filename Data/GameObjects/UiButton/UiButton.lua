@@ -6,7 +6,7 @@ local Actions = {
         local login_input = Engine.Scene:getGameObject("login_input_go");
         local password_input = Engine.Scene:getGameObject("password_input_go");
         if login_input:check() and password_input:check() then
-            Engine.Scene:loadFromFile("Scenes/moonshot_dungeon_1.json.vili");
+            Engine.Scene:loadFromFile("scenes://moonshot_dungeon_1.json.vili");
         end
     end
 }

@@ -1,5 +1,2 @@
-MusicManager:
-    Script:
-        source:"Data/GameObjects/MusicManager/MusicManager.lua"
-
-
+Script:
+    source:"self://MusicManager.lua"

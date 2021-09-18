@@ -13,5 +13,5 @@ GameObjects:
         type: "Splashscreen"
         Requires:
             image: "disclaimer.png"
-            next_scene: "keybindings.map.vili"
+            next_scene: "scenes://keybindings.map.vili"
 

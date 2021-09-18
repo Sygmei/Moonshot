@@ -1,13 +1,12 @@
-AmelBent:
-    Sprite:
-        path: "Sprites/amel_bent.png"
-        rect:
-            x: 0
-            y: 0
-            width: 166.25
-            height: 350
-            unit: ScenePixels
-        layer: 1
-        zdepth: 0
-    Script:
-        source: "Data/GameObjects/AmelBent/AmelBent.lua"
+Sprite:
+    path: "sprites://amel_bent.png"
+    rect:
+        x: 0
+        y: 0
+        width: 166.25
+        height: 350
+        unit: ScenePixels
+    layer: 1
+    zdepth: 0
+Script:
+    source: "self://AmelBent.lua"

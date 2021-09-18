@@ -1,5 +1,2 @@
-Teleport:
-    Script:
-        sources:[
-            "Data/GameObjects/Teleport/Teleport.lua"
-            ]
+Script:
+    source: "self://Teleport.lua"

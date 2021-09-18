@@ -1,14 +1,18 @@
 Framerate:
     framerateLimit: true
-    framerateTarget: 120
-    vsync: false
+    framerateTarget: 60
+    vsync: true
 
 Window:
     Game:
         title: "Moonshot GameOff edition"
-        fullscreen: false
-        width: 1920
-        height: 1080
+        fullscreen: true
+        width: fill
+        height: fill
+        render:
+            width: 1920
+            height: 1080
+            stretch: "Fit"
         resizeable: false
 
 GameConfig:
@@ -36,4 +40,4 @@ Input:
 
 Debug:
     Logging:
-        level: info
+        level: debug

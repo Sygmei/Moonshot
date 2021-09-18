@@ -1,5 +1,2 @@
-Gate:
-    Script:
-        sources:[
-            "Data/GameObjects/Gate/Gate.lua"
-            ]
+Script:
+    source: "self://Gate.lua"

@@ -1,15 +1,12 @@
-Checkpoint:
-    Script:
-        sources:[
-            "Data/GameObjects/Checkpoint/Checkpoint.lua"
-            ]
-    Sprite:
-        path: "Sprites/checkpoint.png"
-        rect:
-            x: 0
-            y: 0
-            width: 0.24
-            height: 0.24
-            unit: "SceneUnits"
-        layer: 0
-        zdepth: 0
+Script:
+    source: "self://Checkpoint.lua"
+Sprite:
+    path: "sprites://checkpoint.png"
+    rect:
+        x: 0
+        y: 0
+        width: 0.24
+        height: 0.24
+        unit: "SceneUnits"
+    layer: 0
+    zdepth: 0

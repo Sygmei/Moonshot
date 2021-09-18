@@ -1,3 +1,2 @@
-TargetCluster:
-    Script:
-        source: "Data/GameObjects/TargetCluster/TargetCluster.lua"
+Script:
+    source: "self://TargetCluster.lua"

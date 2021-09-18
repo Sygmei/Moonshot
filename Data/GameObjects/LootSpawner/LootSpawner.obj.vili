@@ -1,5 +1,2 @@
-LootSpawner:
-    Script:
-        source:"Data/GameObjects/LootSpawner/LootSpawner.lua"
-
-
+Script:
+    source: "self://LootSpawner.lua"

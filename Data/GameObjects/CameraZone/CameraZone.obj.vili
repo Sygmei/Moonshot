@@ -1,3 +1,2 @@
-CameraZone:
-    Script:
-        source: "Data/GameObjects/CameraZone/CameraZone.lua"
+Script:
+    source: "self://CameraZone.lua"

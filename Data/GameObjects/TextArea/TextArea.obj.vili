@@ -1,3 +1,2 @@
-TextArea:
-    Script:
-        source: "Data/GameObjects/TextArea/TextArea.lua"
+Script:
+    source: "self://TextArea.lua"

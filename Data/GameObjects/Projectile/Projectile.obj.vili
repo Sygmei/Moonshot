@@ -1,25 +1,24 @@
-Projectile:
-    Script:
-        sources:[
-            "Data/GameObjects/Projectile/Projectile.lua",
-            "Scripts/Vector2.lua"
-            ]
-    Collider:
-        points: [
-            {x: 0, y:0},
-            {x: 0.0185, y:0},
-            {x: 0.0185, y:0.0185},
-            {x: 0, y:0.0185}
-        ]
-        unit:"SceneUnits"
-        tag: "Projectile"
-    Sprite:
-        path:"Sprites/projectile.png"
-        rect:
-            x: 0
-            y: 0
-            width: 0.1
-            height: 0.1
-            unit: "SceneUnits"
-        layer: 0
-        zdepth:0
+Script:
+    sources: [
+        "self://Projectile.lua",
+        "scripts://Vector2.lua"
+    ]
+Collider:
+    points: [
+        {x: 0, y:0},
+        {x: 0.0185, y:0},
+        {x: 0.0185, y:0.0185},
+        {x: 0, y:0.0185}
+    ]
+    unit: "SceneUnits"
+    tag: "Projectile"
+Sprite:
+    path: "sprites://projectile.png"
+    rect:
+        x: 0
+        y: 0
+        width: 0.1
+        height: 0.1
+        unit: "SceneUnits"
+    layer: 0
+    zdepth: 0

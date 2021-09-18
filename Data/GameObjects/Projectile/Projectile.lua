@@ -107,7 +107,8 @@ local function followCircle(circle, dt)
 end
 
 function Object:delete()
-    This:deleteObject();
+    This.Sprite:setVisible(false);
+    Object.inactive = true;
 end
 
 function Event.Game.Update(event)
@@ -156,19 +157,20 @@ function Event.Game.Update(event)
             print("Positions center", center.x, center.y);
             print("Old position", oldCenter.x, oldCenter.y);
             target:hit()
-            Object:delete();
+            -- TODO: Fix this shit
+            This.SceneNode:setPosition(obe.Transform.UnitVector(0, 0, obe.Transform.Units.ScenePixels), obe.Transform.Referential.Center)
+            Object.inactive = true;
             return
         end
     end
     local collisions = This.Collider:getMaximumDistanceBeforeCollision(obe.Transform.UnitVector(center.x - oldCenter.x, center.y - oldCenter.y)).colliders;
     if #collisions ~= 0 then
-        Object:delete();
-        return;
+        This.Sprite:setVisible(false);
+        Object.inactive = true;
     end
     local next_position = obe.Transform.UnitVector(center.x, center.y);
     if not Object.bounds:contains(next_position) then
         Object:delete();
-        return;
     else
         This.SceneNode:setPosition(next_position, obe.Transform.Referential.Center);
     end

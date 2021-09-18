@@ -1,13 +1,13 @@
-Meta: 
+Meta:
     name: "MainMenu"
 
-View: 
+View:
     size: 1.0
-    position: 
+    position:
         x: 0.0
         y: 0.0
         unit: "SceneUnits"
-        
+
     referential: "TopLeft"
 
 Sprites:

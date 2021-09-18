@@ -1,12 +1,5 @@
-Directions = {
-    Left = "left",
-    Right = "right",
-}
-Actions = {
-    "Left",
-    "Right",
-    "Jump"
-}
+Directions = {Left = "left", Right = "right"}
+Actions = {"Left", "Right", "Jump"}
 Character = {};
 
 function Object:DiscoverLadders()
@@ -58,7 +51,8 @@ end
 function Object:DiscoverFires()
     print("Discovering Fires");
     Object.fires = {};
-    for k, v in pairs(Engine.Scene:getAllColliders()) do
+    local colliders = Engine.Scene:getAllColliders();
+    for k, v in pairs(colliders) do
         if v ~= nil and v:doesHaveTag(obe.Collision.ColliderTagType.Tag, "Fire") then
             table.insert(Object.fires, v);
         end
@@ -98,14 +92,22 @@ function Local.Init(x, y, modifiers)
     Object.SceneNode = This.SceneNode;
     Object.sounds = {
         burn = Engine.Audio:load(obe.System.Path("Sounds/burn.ogg"), obe.Audio.LoadPolicy.Cache),
-        spike_death = Engine.Audio:load(obe.System.Path("Sounds/spike_death.ogg"), obe.Audio.LoadPolicy.Cache),
+        spike_death = Engine.Audio:load(
+            obe.System.Path("Sounds/spike_death.ogg"), obe.Audio.LoadPolicy.Cache
+        ),
         loot = Engine.Audio:load(obe.System.Path("Sounds/loot.ogg"), obe.Audio.LoadPolicy.Cache),
-        restriction = Engine.Audio:load(obe.System.Path("Sounds/invalid.ogg"), obe.Audio.LoadPolicy.Cache)
+        restriction = Engine.Audio:load(
+            obe.System.Path("Sounds/invalid.ogg"), obe.Audio.LoadPolicy.Cache
+        )
     }
     Object.sprite_size = This.Sprite:getSize();
-    --collectgarbage("stop")
-    if (x == nil) then x = 0; end
-    if (y == nil) then y = 0; end
+    -- collectgarbage("stop")
+    if (x == nil) then
+        x = 0;
+    end
+    if (y == nil) then
+        y = 0;
+    end
 
     InitializeBindings();
     -- Initial Character Position
@@ -125,7 +127,7 @@ function Local.Init(x, y, modifiers)
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Projectile");
     This.Collider:addTag(obe.Collision.ColliderTagType.Rejected, "Fire");
 
-    --cameraFollower = TriggerDatabase:createTriggerGroup(Private, "ActorsCamera"):addTrigger("Moved");
+    -- cameraFollower = TriggerDatabase:createTriggerGroup(Private, "ActorsCamera"):addTrigger("Moved");
 
     -- This.Animator:load(obe.System.Path("Sprites/Character"));
 
@@ -137,7 +139,7 @@ function Local.Init(x, y, modifiers)
     Object.isRunning = false;
     Object.isCrouching = false;
     Object.direction = Directions.Right;
-    Object.speeds = { walk = 1.5, run = 3, jump = 4.7};
+    Object.speeds = {walk = 1.5, run = 3, jump = 4.7};
 
     --[[for k, v in pairs(Engine.Scene:getAllColliders()) do
         print("Collider", k, v:getId(), v:getParentId());
@@ -179,72 +181,89 @@ function Local.Init(x, y, modifiers)
     Trajectories:addTrajectory("Fall"):setSpeed(0):setAngle(270):setAcceleration(12);
     Trajectories:addTrajectory("Jump"):setSpeed(0):setAngle(90):setAcceleration(-12):setStatic(true);
     Trajectories:addTrajectory("Move"):setSpeed(0):setAngle(0):setAcceleration(0);
-    Trajectories:getTrajectory("Fall"):addCheck(function(self, offset)
-        if not Object.isJumping and self:getStatic() and This.Collider:getMaximumDistanceBeforeCollision(offset).offset.y > 0 then
-            self:setStatic(false);
-            Object.isFalling = true;
-        end
-        for _, ladder in pairs(Object.ladders) do
-            if This.Collider:doesCollide(ladder, obe.UnitVector(0, 0)) then
-                self:setStatic(true);
-                Object.isFalling = false;
+    Trajectories:getTrajectory("Fall"):addCheck(
+        function(self, offset)
+            if not Object.isJumping and self:getStatic() and
+                This.Collider:getMaximumDistanceBeforeCollision(offset).offset.y > 0 then
+                self:setStatic(false);
+                Object.isFalling = true;
+            end
+            for _, ladder in pairs(Object.ladders) do
+                if This.Collider:doesCollide(ladder, obe.Transform.UnitVector(0, 0)) then
+                    self:setStatic(true);
+                    Object.isFalling = false;
+                end
+            end
+            for _, spike in pairs(Object.spikes) do
+                if This.Collider:doesCollide(spike, obe.Transform.UnitVector(0, 0)) then
+                    Character.Kill("spike_death");
+                end
             end
         end
-        for _, spike in pairs(Object.spikes) do
-            if This.Collider:doesCollide(spike, obe.Transform.UnitVector(0, 0)) then
-                Character.Kill("spike_death");
-            end
-        end
-    end);
+    );
 
-    Trajectories:getTrajectory("Jump"):addCheck(function(self, offset)
-        if self:getSpeed() <= 0 then
-            Object.isJumping = false;
+    Trajectories:getTrajectory("Jump"):addCheck(
+        function(self, offset)
+            if self:getSpeed() <= 0 then
+                Object.isJumping = false;
+                self:setSpeed(0);
+                self:setStatic(true);
+            end
+        end
+    );
+
+    Trajectories:getTrajectory("Fall"):onCollide(
+        function(self)
             self:setSpeed(0);
             self:setStatic(true);
+            Object.isFalling = false;
+            Object.isJumping = false;
         end
-    end);
+    );
 
-    Trajectories:getTrajectory("Fall"):onCollide(function(self)
-        self:setSpeed(0);
-        self:setStatic(true);
-        Object.isFalling = false;
-        Object.isJumping = false;
-    end);
+    Trajectories:getTrajectory("Jump"):onCollide(
+        function(self)
+            self:setSpeed(0);
+            Object.isJumping = false;
+        end
+    );
 
-    Trajectories:getTrajectory("Jump"):onCollide(function(self)
-        self:setSpeed(0);
-        Object.isJumping = false;
-    end);
-
-    Trajectories:getTrajectory("Move"):addCheck(function(self, offset)
-        local collision = This.Collider:getMaximumDistanceBeforeCollision(offset);
-        if offset.x ~= 0 then
-            if collision.offset.x == 0 then
-                local collider = collision.colliders[1];
-                local angle = obe.Utils.Math.normalize(collider:getSegment(0):getAngle(), 0, 360);
-                if angle > 180 then
-                    angle = angle - 180;
-                end
-                self:setAngle(angle);
-            else
-                local collision = This.Collider:getMaximumDistanceBeforeCollision(obe.Transform.UnitVector(0, 0.01));
-                if #collision.colliders > 0 then
-                    local angle = 0
-                    for _, collider in pairs(collision.colliders) do
-                        angle = obe.Utils.Math.normalize(collider:getSegment(0):getAngle(), 0, 360);
-                        if angle == 0 or angle == 180 then
-                            return
-                        end
-                    end
-                    if angle < 180 then
-                        angle = angle + 180;
+    Trajectories:getTrajectory("Move"):addCheck(
+        function(self, offset)
+            local collision = This.Collider:getMaximumDistanceBeforeCollision(offset);
+            if offset.x ~= 0 then
+                if collision.offset.x == 0 then
+                    local collider = collision.colliders[1];
+                    local angle = obe.Utils.Math
+                                      .normalize(collider:getSegment(0):getAngle(), 0, 360);
+                    if angle > 180 then
+                        angle = angle - 180;
                     end
                     self:setAngle(angle);
+                else
+                    local collision = This.Collider:getMaximumDistanceBeforeCollision(
+                        obe.Transform.UnitVector(
+                            0, 0.01
+                        )
+                    );
+                    if #collision.colliders > 0 then
+                        local angle = 0
+                        for _, collider in pairs(collision.colliders) do
+                            angle = obe.Utils.Math
+                                        .normalize(collider:getSegment(0):getAngle(), 0, 360);
+                            if angle == 0 or angle == 180 then
+                                return
+                            end
+                        end
+                        if angle < 180 then
+                            angle = angle + 180;
+                        end
+                        self:setAngle(angle);
+                    end
                 end
             end
         end
-    end);
+    );
 
     Object.shoot = {
         Animator = obe.Animation.Animator(),
@@ -261,11 +280,7 @@ function Local.Init(x, y, modifiers)
     Object.shoot.Sprite:setLayer(1);
     Object.shoot.Sprite:setVisible(false);
 
-    Object.modifiers = {
-        bullet_through_bridge = false,
-        moon = false,
-        projectile_count = 4
-    };
+    Object.modifiers = {bullet_through_bridge = false, moon = false, projectile_count = 4};
     if modifiers then
         Object:applyModifiers(modifiers .. ",");
     end
@@ -307,10 +322,10 @@ function Event.Actions.Shoot()
     local relPos = pos - Engine.Scene:getCamera():getPosition():to(obe.Transform.Units.SceneUnits);
     local vecInit = obe.Transform.UnitVector(cursorPos.x - relPos.x, cursorPos.y - relPos.y);
     Engine.Scene:createGameObject("Projectile") {
-        x=pos.x,
-        y=pos.y,
-        vecInit=vecInit,
-        through_bridge=Object.modifiers.bullet_through_bridge
+        x = pos.x,
+        y = pos.y,
+        vecInit = vecInit,
+        through_bridge = Object.modifiers.bullet_through_bridge
     };
     Object.isShooting = true;
     Object.shoot.Sprite:setVisible(true);
@@ -330,10 +345,7 @@ function Event.Actions.CreateMoon()
             return;
         end
         local realPos = (Engine.Scene:getCamera():getPosition() + Engine.Cursor:getScenePosition());
-        Engine.Scene:createGameObject("Moon") {
-            x=realPos.x,
-            y=realPos.y
-        };
+        Engine.Scene:createGameObject("Moon") {x = realPos.x, y = realPos.y};
     elseif amount_of_moons == 1 then
         print("Release moons :D")
         for k, v in pairs(Engine.Scene:getAllGameObjects("Moon")) do
@@ -343,12 +355,14 @@ function Event.Actions.CreateMoon()
     if moon_remover == nil then
         print("Add remover");
         moon_remover = Engine.Events:schedule();
-        moon_remover:after(0.6):run(function()
-            for k, v in pairs(Engine.Scene:getAllGameObjects("Moon")) do
-                v:delete();
+        moon_remover:after(0.6):run(
+            function()
+                for k, v in pairs(Engine.Scene:getAllGameObjects("Moon")) do
+                    v:delete();
+                end
+                moon_remover = nil;
             end
-            moon_remover = nil;
-        end);
+        );
         print("Added remover", moon_remover);
     end
 end
@@ -391,7 +405,7 @@ function Character.Jump()
                 jump_speed = jumper.speed;
                 jump_angle = jumper.angle;
                 jumper:use();
-                break;
+                break
             end
         end
         Trajectories:getTrajectory("Jump"):setAngle(jump_angle);
@@ -426,7 +440,7 @@ function Event.Game.Update(event)
         if v.Zone:intersects(This.Collider:getBoundingBox()) then
             dt = dt * v.factor;
             slowed = true;
-            break;
+            break
         end
     end
     Object.slowed = slowed;
@@ -454,14 +468,22 @@ function Event.Game.Update(event)
     if Object.isShooting then
         -- Object.shoot.Animator:update();
         Object.shoot.Clock = Object.shoot.Clock + event.dt;
-        Object.shoot.Sprite:setPosition(This.Collider:getCentroid(), obe.Transform.Referential.Center);
+        Object.shoot.Sprite:setPosition(
+            This.Collider:getCentroid(), obe.Transform.Referential.Center
+        );
         local current_shoot_scale = (Object.shoot.Clock / Object.shoot.MaxClock) * 0.5;
-        Object.shoot.Sprite:setSize(obe.Transform.UnitVector(0.01 + current_shoot_scale, 0.01 + current_shoot_scale), obe.Transform.Referential.Center);
+        Object.shoot.Sprite:setSize(
+            obe.Transform.UnitVector(
+                0.01 + current_shoot_scale, 0.01 + current_shoot_scale
+            ), obe.Transform.Referential.Center
+        );
         if Object.shoot.Clock >= Object.shoot.MaxClock then
             Object.shoot.Clock = 0;
             Object.isShooting = false;
             Object.shoot.Sprite:setVisible(false);
-            Object.shoot.Sprite:setSize(obe.Transform.UnitVector(0.5, 0.5), obe.Transform.Referential.Center);
+            Object.shoot.Sprite:setSize(
+                obe.Transform.UnitVector(0.5, 0.5), obe.Transform.Referential.Center
+            );
         end
     end
 
@@ -482,7 +504,7 @@ function Event.Game.Update(event)
                 checkpoint2:disable();
             end
             checkpoint:enable();
-            break;
+            break
         end
     end
 
