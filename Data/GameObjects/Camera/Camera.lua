@@ -8,11 +8,7 @@ function getAllZones()
                 clamp[v] = Object.base_clamps[v];
             end
         end
-        zones[zone.id] = {
-            rect = zone.Zone,
-            clamp = clamp,
-            use_max = zone.use_max
-        };
+        zones[zone.id] = {rect = zone.Zone, clamp = clamp, use_max = zone.use_max};
     end
     print(inspect(zones));
     return zones;
@@ -39,7 +35,9 @@ function scaleCamera()
         if Object.current_zone.use_max then
             comp_func = math.max;
         end
-        Object.target_scale = comp_func(Object.current_zone.rect.width / window_ratio, Object.current_zone.rect.height) / 2;
+        Object.target_scale = comp_func(
+            Object.current_zone.rect.width / window_ratio, Object.current_zone.rect.height
+        ) / 2;
     end
 end
 
@@ -65,12 +63,15 @@ function Local.Init(actor, clamp_x_min, clamp_y_min, clamp_x_max, clamp_y_max)
     };
     Object.clamps = Object.base_clamps;
     if Object.actor then
-        Engine.Scene:getCamera():setPosition(Object.actor:getCentroid(), obe.Transform.Referential.Center);
+        Engine.Scene:getCamera():setPosition(
+            Object.actor:getCentroid(), obe.Transform.Referential.Center
+        );
     end
     Object.zones = getAllZones();
     Object.base_parallax_sizes = {};
     for _, sprite in pairs(Engine.Scene:getAllSprites()) do
-        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" or sprite:getPositionTransformer():getXTransformerName() == "Position"  then
+        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" or
+            sprite:getPositionTransformer():getXTransformerName() == "Position" then
             Object.base_parallax_sizes[sprite:getId()] = sprite:getSize();
         end
     end
@@ -85,17 +86,25 @@ function Event.Game.Update(event)
         return;
     end
     if CAMERA_SMOOTH then
-        local current_camera_position = Engine.Scene:getCamera():getPosition(obe.Transform.Referential.Center);
+        local current_camera_position = Engine.Scene:getCamera():getPosition(
+            obe.Transform.Referential.Center
+        );
         local actor_position = Object.actor:getCentroid();
         local new_position = (actor_position - current_camera_position) * CAMERA_SPEED * event.dt;
         Engine.Scene:getCamera():move(new_position);
     else
-        Engine.Scene:getCamera():setPosition(Object.actor:getCentroid(), obe.Transform.Referential.Center);
+        Engine.Scene:getCamera():setPosition(
+            Object.actor:getCentroid(), obe.Transform.Referential.Center
+        );
     end
-    local current_camera_position = Engine.Scene:getCamera():getPosition(obe.Transform.Referential.Center);
+    local current_camera_position = Engine.Scene:getCamera():getPosition(
+        obe.Transform.Referential.Center
+    );
     local camera_center = Engine.Scene:getCamera():getPosition(obe.Transform.Referential.Center);
     local camera_topleft = Engine.Scene:getCamera():getPosition(obe.Transform.Referential.TopLeft);
-    local camera_bottomright = Engine.Scene:getCamera():getPosition(obe.Transform.Referential.BottomRight);
+    local camera_bottomright = Engine.Scene:getCamera():getPosition(
+        obe.Transform.Referential.BottomRight
+    );
     if Object.clamps.x_min ~= nil and camera_topleft.x < Object.clamps.x_min then
         current_camera_position.x = Object.clamps.x_min + (camera_center.x - camera_topleft.x);
     elseif Object.clamps.x_max ~= nil and camera_bottomright.x > Object.clamps.x_max then
@@ -111,14 +120,16 @@ function Event.Game.Update(event)
     detectZone();
     scaleCamera();
     setClamps();
-    Object.current_scale = Object.current_scale + (Object.target_scale - Object.current_scale) * CAMERA_SPEED * event.dt
+    Object.current_scale = Object.current_scale + (Object.target_scale - Object.current_scale) *
+                               CAMERA_SPEED * event.dt
     -- Engine.Scene:getCamera():setSize(Object.target_scale, obe.Transform.Referential.Center);
     Engine.Scene:getCamera():setSize(Object.current_scale, obe.Transform.Referential.Center);
     allSprites = Engine.Scene:getAllSprites()
     for _, sprite in pairs(allSprites) do
-        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" or sprite:getPositionTransformer():getXTransformerName() == "Position" then
+        if sprite:getPositionTransformer():getXTransformerName() == "Parallax" or
+            sprite:getPositionTransformer():getXTransformerName() == "Position" then
             local base_size = Object.base_parallax_sizes[sprite:getId()];
-            sprite:setSize(base_size*Object.current_scale);
+            sprite:setSize(base_size * Object.current_scale);
         end
     end
 end

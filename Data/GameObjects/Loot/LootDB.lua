@@ -3,7 +3,10 @@ LOOT_DB = {
         image = "Sprites/Loot/bullet_through_bridge.png",
         effect = function(self, character)
             character.modifiers.bullet_through_bridge = true;
-            Engine.Audio:load(obe.System.Path("Sounds/shoot_through_bridges_indication.ogg"), obe.Audio.LoadPolicy.Cache):play();
+            Engine.Audio:load(
+                obe.System.Path("Sounds/shoot_through_bridges_indication.ogg"),
+                    obe.Audio.LoadPolicy.Cache
+            ):play();
         end
     },
     puzzle_piece = {
@@ -27,5 +30,5 @@ LOOT_DB = {
             print("Got a moon :)", self.id);
             character.modifiers.moon = true;
         end
-    },
+    }
 }

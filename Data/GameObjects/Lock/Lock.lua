@@ -2,10 +2,14 @@ local character;
 local active = true;
 
 function Local.Init(x, y, key, gate)
-    Object.position = obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels):to(obe.Transform.Units.SceneUnits);
+    Object.position = obe.Transform.UnitVector(x, y, obe.Transform.Units.ScenePixels):to(
+        obe.Transform.Units.SceneUnits
+    );
     Object.key = key;
     Object.gate = Engine.Scene:getGameObject(gate);
-    Object.sound = Engine.Audio:load(obe.System.Path("Sounds/unlock.ogg"), obe.Audio.LoadPolicy.Cache);
+    Object.sound = Engine.Audio:load(
+        obe.System.Path("Sounds/unlock.ogg"), obe.Audio.LoadPolicy.Cache
+    );
 
     character = Engine.Scene:getGameObject("character");
 end

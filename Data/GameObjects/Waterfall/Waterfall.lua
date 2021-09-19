@@ -12,7 +12,6 @@ local WATERFALL_TILE_ID = {
 
 local ANIMATION_TIME = 0.2;
 
-
 function Local.Init(x, y, width, height)
     Object.clock = ANIMATION_TIME;
 
@@ -28,10 +27,12 @@ end
 
 function canGoThrough(x, y)
     local items_tile_id = Engine.Scene:getTiles():getLayer("Items"):getTile(x, y);
-    local bridge_id_offset = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock"):getFirstTileId();
-    if items_tile_id ~= 0 and (items_tile_id < bridge_id_offset + 3 or items_tile_id > bridge_id_offset + 5)
-    or Engine.Scene:getTiles():getLayer("Tile_Layer"):getTile(x, y) ~= 0
-    or Engine.Scene:getTiles():getLayer("Tile_Layer_Back"):getTile(x, y) ~= 0 then
+    local bridge_id_offset = Engine.Scene:getTiles():getTilesets():tilesetFromId("bridge_rock")
+        :getFirstTileId();
+    if items_tile_id ~= 0 and
+        (items_tile_id < bridge_id_offset + 3 or items_tile_id > bridge_id_offset + 5) or
+        Engine.Scene:getTiles():getLayer("Tile_Layer"):getTile(x, y) ~= 0 or
+        Engine.Scene:getTiles():getLayer("Tile_Layer_Back"):getTile(x, y) ~= 0 then
         return false;
     end
     return true;
@@ -56,17 +57,24 @@ function waterfall(event)
         Object.waterfall_height = Object.waterfall_height + 1;
         local extincted_fire = false;
         for x = Object.tile_x - 1, max_x + 1, 1 do
-            local tileId = Engine.Scene:getTiles():getLayer("Items_front"):getTile(x, Object.waterfall_height);
-            if tileId ~= 0 and Engine.Scene:getTiles():getTilesets():tilesetFromTileId(tileId):getId() == "fire" then
+            local tileId = Engine.Scene:getTiles():getLayer("Items_front"):getTile(
+                x, Object.waterfall_height
+            );
+            if tileId ~= 0 and
+                Engine.Scene:getTiles():getTilesets():tilesetFromTileId(tileId):getId() == "fire" then
                 extincted_fire = true;
-                Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, Object.waterfall_height, 0);
+                Engine.Scene:getTiles():getLayer("Items_front"):setTile(
+                    x, Object.waterfall_height, 0
+                );
             end
         end
         if extincted_fire then
             Engine.Scene:getGameObject("character"):DiscoverFires();
         end
     end
-    local WATERFALL_SPRITESHEET_OFFSET = Engine.Scene:getTiles():getTilesets():tilesetFromId("waterfall"):getFirstTileId();
+    local WATERFALL_SPRITESHEET_OFFSET = Engine.Scene:getTiles():getTilesets():tilesetFromId(
+        "waterfall"
+    ):getFirstTileId();
 
     for x = Object.tile_x, max_x, 1 do
         local suffix = "MIDDLE";
@@ -75,9 +83,13 @@ function waterfall(event)
         elseif x == max_x then
             suffix = "RIGHT";
         end
-        Engine.Scene:getTiles():getLayer("Water"):setTile(x, current_y, WATERFALL_SPRITESHEET_OFFSET+WATERFALL_TILE_ID[prefix..suffix]);
+        Engine.Scene:getTiles():getLayer("Water"):setTile(
+            x, current_y, WATERFALL_SPRITESHEET_OFFSET + WATERFALL_TILE_ID[prefix .. suffix]
+        );
         if prefix == "" then
-            Engine.Scene:getTiles():getLayer("Water"):setTile(x, new_y, WATERFALL_SPRITESHEET_OFFSET+WATERFALL_TILE_ID["FALLING_"..suffix]);
+            Engine.Scene:getTiles():getLayer("Water"):setTile(
+                x, new_y, WATERFALL_SPRITESHEET_OFFSET + WATERFALL_TILE_ID["FALLING_" .. suffix]
+            );
         end
     end
 end

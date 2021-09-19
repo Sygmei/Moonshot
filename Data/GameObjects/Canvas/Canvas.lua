@@ -12,10 +12,7 @@ function Local.Init(zone, x, y)
         x = x - spritePos.x,
         y = y - spritePos.y,
         unit = obe.Transform.Units.ScenePixels,
-        align = {
-            horizontal = "Center",
-            vertical = "Center"
-        },
+        align = {horizontal = "Center", vertical = "Center"},
         text = "",
         layer = 1,
         size = 110
@@ -23,12 +20,12 @@ function Local.Init(zone, x, y)
 end
 
 function Object:setText(text)
-    Object.text.text =  text
+    Object.text.text = text
 end
 
 function Object:removeText(text)
     if Object.text.text == text then
-        Object.text.text =  ""
+        Object.text.text = ""
     end
 end
 

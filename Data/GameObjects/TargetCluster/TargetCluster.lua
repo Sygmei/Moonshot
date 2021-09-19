@@ -3,7 +3,14 @@ local resetTimer;
 local nextTarget;
 local sequenceStarted;
 
-function Local.Init(trigger, timeout, resetTime, allow_multiple_successes, allow_failure_after_success, order_matter)
+function Local.Init(
+    trigger,
+    timeout,
+    resetTime,
+    allow_multiple_successes,
+    allow_failure_after_success,
+    order_matter
+)
     Object.trigger = Engine.Scene:getGameObject(trigger);
     Object.targets = {};
     for i, target in ipairs(Object.targets) do
@@ -19,11 +26,17 @@ function Local.Init(trigger, timeout, resetTime, allow_multiple_successes, allow
         resetTimer = obe.Time.Chronometer()
         resetTimer:setLimit(resetTime)
     end
-    Object.timer_sound = Engine.Audio:load(obe.System.Path("Sounds/ticktock.ogg"), obe.Audio.LoadPolicy.Cache);
+    Object.timer_sound = Engine.Audio:load(
+        obe.System.Path("Sounds/ticktock.ogg"), obe.Audio.LoadPolicy.Cache
+    );
     Object.timer_sound:setLooping(true);
 
-    Object.valid_sound = Engine.Audio:load(obe.System.Path("Sounds/valid.ogg"), obe.Audio.LoadPolicy.Cache);
-    Object.invalid_sound = Engine.Audio:load(obe.System.Path("Sounds/invalid.ogg"), obe.Audio.LoadPolicy.Cache);
+    Object.valid_sound = Engine.Audio:load(
+        obe.System.Path("Sounds/valid.ogg"), obe.Audio.LoadPolicy.Cache
+    );
+    Object.invalid_sound = Engine.Audio:load(
+        obe.System.Path("Sounds/invalid.ogg"), obe.Audio.LoadPolicy.Cache
+    );
     Object.config = {
         allow_multiple_successes = allow_multiple_successes or false,
         allow_failure_after_success = allow_failure_after_success or false,

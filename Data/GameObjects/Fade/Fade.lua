@@ -1,10 +1,6 @@
 function Local.Init()
     canvas = obe.Canvas.Canvas(1, 1);
-    rect = canvas:Rectangle("background") {
-        width = 1,
-        height = 1,
-        color = "black",
-    }
+    rect = canvas:Rectangle("background") {width = 1, height = 1, color = "black"}
     canvas:render(This.Sprite);
     Object.fade = 0;
     Object.fadeSpeed = 300;
@@ -32,7 +28,9 @@ function Event.Actions.FadeOut()
 end]]
 
 function Event.Game.Update(event)
-    if event.dt > 0.1 then event.dt = 0.1 end
+    if event.dt > 0.1 then
+        event.dt = 0.1
+    end
     Object.alpha = Object.alpha + (event.dt * Object.fadeSpeed * Object.fade);
     if Object.fade > 0 and Object.alpha >= 255 then
         Object.fade = 0;

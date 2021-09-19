@@ -27,9 +27,7 @@ function Local.Init()
         color = obe.Graphics.Color.White,
         x = 60,
         y = 24,
-        align = {
-            vertical = "Center"
-        },
+        align = {vertical = "Center"},
         unit = obe.Transform.Units.ScenePixels
     }
 
@@ -48,9 +46,7 @@ function Local.Init()
         color = obe.Graphics.Color.White,
         x = 60,
         y = 24 + 60,
-        align = {
-            vertical = "Center"
-        },
+        align = {vertical = "Center"},
         unit = obe.Transform.Units.ScenePixels
     }
 end

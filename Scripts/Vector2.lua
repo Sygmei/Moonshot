@@ -9,7 +9,7 @@ function Vector2:_init(x, y)
 end
 
 function Vector2:magnitude()
-    return sqrt(self.x^2 + self.y^2)
+    return sqrt(self.x ^ 2 + self.y ^ 2)
 end
 
 function Vector2:__add(V)
@@ -20,5 +20,7 @@ function Vector2:normalize()
     local mag = self:magnitude()
     if mag > 0 then
         return Vector2(self.x / mag, self.y / mag)
-    else return 0 end
+    else
+        return 0
+    end
 end

@@ -66,7 +66,9 @@ function openPortculis(event)
 
     for x = Object.tile_x, max_x, 1 do
         Engine.Scene:getTiles():getLayer("Items"):setTile(x, current_y, 0);
-        Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, current_y, PORTCULLIS_OPEN_TILE_ID);
+        Engine.Scene:getTiles():getLayer("Items_front"):setTile(
+            x, current_y, PORTCULLIS_OPEN_TILE_ID
+        );
         print("OPEN", current_y);
         if old_y then
             Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, old_y, 0);
@@ -77,7 +79,9 @@ function openPortculis(event)
     Object.step = Object.step + 1;
     if Object.step >= Object.portcullis_height then
         for x = Object.tile_x, max_x, 1 do
-            Engine.Scene:getTiles():getLayer("Items"):setTile(x, current_y, PORTCULLIS_BOTTOM_TILE_ID);
+            Engine.Scene:getTiles():getLayer("Items"):setTile(
+                x, current_y, PORTCULLIS_BOTTOM_TILE_ID
+            );
             Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, current_y, 0);
         end
         endState();
@@ -99,7 +103,9 @@ function closePortculis(event)
 
     for x = Object.tile_x, max_x, 1 do
         Engine.Scene:getTiles():getLayer("Items"):setTile(x, current_y, 0);
-        Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, current_y, PORTCULLIS_CLOSE_TILE_ID);
+        Engine.Scene:getTiles():getLayer("Items_front"):setTile(
+            x, current_y, PORTCULLIS_CLOSE_TILE_ID
+        );
         print("OPEN", current_y);
         if old_y then
             Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, old_y, 0);
@@ -112,7 +118,9 @@ function closePortculis(event)
     if Object.step >= Object.portcullis_height then
         for x = Object.tile_x, max_x, 1 do
             print("CLOSE", current_y)
-            Engine.Scene:getTiles():getLayer("Items_front"):setTile(x, current_y, PORTCULLIS_BOTTOM_TILE_ID);
+            Engine.Scene:getTiles():getLayer("Items_front"):setTile(
+                x, current_y, PORTCULLIS_BOTTOM_TILE_ID
+            );
             Engine.Scene:getTiles():getLayer("Items"):setTile(x, current_y, 0);
         end
         endState();
@@ -120,7 +128,9 @@ function closePortculis(event)
 end
 
 function Local.Init(x, y, width, height, state)
-    local PORTCULLIS_TILESET_FIRST_TILE_ID = Engine.Scene:getTiles():getTilesets():tilesetFromId("portcullis"):getFirstTileId();
+    local PORTCULLIS_TILESET_FIRST_TILE_ID = Engine.Scene:getTiles():getTilesets():tilesetFromId(
+        "portcullis"
+    ):getFirstTileId();
 
     PORTCULLIS_CLOSE_TILE_ID = PORTCULLIS_TILESET_FIRST_TILE_ID + 1;
     PORTCULLIS_OPEN_TILE_ID = PORTCULLIS_TILESET_FIRST_TILE_ID + 5;

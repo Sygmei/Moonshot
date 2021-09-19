@@ -1,13 +1,9 @@
 local NORMAL_SPEED = 6
 local ORBIT_SPEED = 1
-local SPEED = NORMAL_SPEED --pxl/s
+local SPEED = NORMAL_SPEED -- pxl/s
 local LIFETIME = 10;
 
-State = {
-    FREE = 0,
-    ATTRACTED = 1,
-    ORBIT = 2
-}
+State = {FREE = 0, ATTRACTED = 1, ORBIT = 2}
 
 local targets;
 local moon;
@@ -18,7 +14,10 @@ Object.inactive = true;
 
 function Local.Init(x, y, vecInit, through_bridge)
     local TILES = Engine.Scene:getTiles();
-    local tile_size = obe.Transform.UnitVector(TILES:getWidth() * TILES:getTileWidth(), TILES:getHeight() * TILES:getTileHeight(), obe.Transform.Units.ScenePixels):to(obe.Transform.Units.SceneUnits);
+    local tile_size = obe.Transform.UnitVector(
+        TILES:getWidth() * TILES:getTileWidth(), TILES:getHeight() * TILES:getTileHeight(),
+            obe.Transform.Units.ScenePixels
+    ):to(obe.Transform.Units.SceneUnits);
     Object.bounds = obe.Transform.Rect();
     Object.bounds:setSize(tile_size);
     Object.clock = 0;
@@ -30,11 +29,11 @@ function Local.Init(x, y, vecInit, through_bridge)
     oldCenter = {x = x, y = y}
     vecUnit = Vector2(vecInit.x, vecInit.y):normalize()
     while vecUnit == 0 do
-        x = (obe.Utils.Math.randint(0, 1)*2-1)  * obe.Utils.Math.randfloat()
-        y = (obe.Utils.Math.randint(0, 1)*2-1)  * obe.Utils.Math.randfloat()
+        x = (obe.Utils.Math.randint(0, 1) * 2 - 1) * obe.Utils.Math.randfloat()
+        y = (obe.Utils.Math.randint(0, 1) * 2 - 1) * obe.Utils.Math.randfloat()
         vecUnit = Vector2(x, y):normalize()
     end
-    This.SceneNode:setPosition(obe.Transform.UnitVector(x,y), obe.Transform.Referential.Center)
+    This.SceneNode:setPosition(obe.Transform.UnitVector(x, y), obe.Transform.Referential.Center)
 
     t = 0
     state = State.FREE
@@ -100,10 +99,10 @@ end
 
 local function followCircle(circle, dt)
     local angularSpeed = SPEED / circle.radius;
-    local angularVelocity = direction*angularSpeed;
+    local angularVelocity = direction * angularSpeed;
     t = t + dt
-    center.x = circle.radius*math.cos(t*angularVelocity+initialAngle) + circle.x
-    center.y = circle.radius*math.sin(t*angularVelocity+initialAngle) + circle.y
+    center.x = circle.radius * math.cos(t * angularVelocity + initialAngle) + circle.x
+    center.y = circle.radius * math.sin(t * angularVelocity + initialAngle) + circle.y
 end
 
 function Object:delete()
@@ -131,11 +130,11 @@ function Event.Game.Update(event)
         state = State.FREE
         vecUnit = Vector2(center.x - oldCenter.x, center.y - oldCenter.y):normalize()
     end
-    oldCenter = {x=center.x, y=center.y}
+    oldCenter = {x = center.x, y = center.y}
     if state == State.ORBIT then
         local orbitPos = moon:getPosition()
         local orbitRadius = moon:getOrbitRadius()
-        followCircle({radius=orbitRadius, x=orbitPos.x, y=orbitPos.y}, event.dt)
+        followCircle({radius = orbitRadius, x = orbitPos.x, y = orbitPos.y}, event.dt)
     elseif state == State.ATTRACTED and ramp.circle ~= nil then
         followCircle(ramp.circle, event.dt)
         checkOrbit()
@@ -150,20 +149,30 @@ function Event.Game.Update(event)
     end
     for _, target in pairs(targets) do
         local offset = obe.Transform.UnitVector(center.x - oldCenter.x, center.y - oldCenter.y);
-        local max_dist_before_collision = This.Collider:getMaximumDistanceBeforeCollision(target.Collider, offset);
-        
+        local max_dist_before_collision = This.Collider:getMaximumDistanceBeforeCollision(
+            target.Collider, offset
+        );
+
         if max_dist_before_collision ~= offset then
             print("Target hit", offset, max_dist_before_collision);
             print("Positions center", center.x, center.y);
             print("Old position", oldCenter.x, oldCenter.y);
             target:hit()
             -- TODO: Fix this shit
-            This.SceneNode:setPosition(obe.Transform.UnitVector(0, 0, obe.Transform.Units.ScenePixels), obe.Transform.Referential.Center)
+            This.SceneNode:setPosition(
+                obe.Transform.UnitVector(
+                    0, 0, obe.Transform.Units.ScenePixels
+                ), obe.Transform.Referential.Center
+            )
             Object.inactive = true;
             return
         end
     end
-    local collisions = This.Collider:getMaximumDistanceBeforeCollision(obe.Transform.UnitVector(center.x - oldCenter.x, center.y - oldCenter.y)).colliders;
+    local collisions = This.Collider:getMaximumDistanceBeforeCollision(
+                           obe.Transform.UnitVector(
+            center.x - oldCenter.x, center.y - oldCenter.y
+        )
+                       ).colliders;
     if #collisions ~= 0 then
         This.Sprite:setVisible(false);
         Object.inactive = true;

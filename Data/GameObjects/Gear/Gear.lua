@@ -5,10 +5,11 @@ function Local.Init()
     Object.maxMoveSpeed = 20;
     Object.spin = false;
     Object.move = true;
-    Object.sound = Engine.Audio:load(obe.System.Path("Sounds/gears.ogg"), obe.Audio.LoadPolicy.Cache);
+    Object.sound =
+        Engine.Audio:load(obe.System.Path("Sounds/gears.ogg"), obe.Audio.LoadPolicy.Cache);
     This.Sprite:setPosition(
         obe.Transform.UnitVector(1, 0.5, obe.Transform.Units.ViewPercentage),
-        obe.Transform.Referential.Left
+            obe.Transform.Referential.Left
     );
 end
 

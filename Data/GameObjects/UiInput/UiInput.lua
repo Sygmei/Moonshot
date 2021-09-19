@@ -1,4 +1,5 @@
-function Local.Init(login, sprite, blinkingSize, placeholder);
+function Local.Init(login, sprite, blinkingSize, placeholder)
+
     if login == nil then
         login = Nicknames[math.random(1, #Nicknames)];
     end
@@ -18,7 +19,7 @@ function Local.Init(login, sprite, blinkingSize, placeholder);
     print("Input size", input_size.y)
     local fontSize = math.floor(input_size.y * 0.3)
     local fontPosX = input_size.x / 2;
-    local fontPosY = input_size.y/2 + 6;
+    local fontPosY = input_size.y / 2 + 6;
     loginText = canvas:Text "login" {
         text = "",
         size = fontSize,
@@ -26,10 +27,7 @@ function Local.Init(login, sprite, blinkingSize, placeholder);
         x = fontPosX,
         y = fontPosY,
         text = placeholder,
-        align = {
-            horizontal = "Center",
-            vertical = "Center"
-        }
+        align = {horizontal = "Center", vertical = "Center"}
     };
     selected = false
 
@@ -90,7 +88,7 @@ function Event.Actions.Keyboard(event)
     if selected then
         if #currentLogin < #fullLogin then
             local length = #currentLogin
-            currentLogin = currentLogin .. fullLogin:sub(length+1, length+1)
+            currentLogin = currentLogin .. fullLogin:sub(length + 1, length + 1)
         end
         updateLogin(true)
     end

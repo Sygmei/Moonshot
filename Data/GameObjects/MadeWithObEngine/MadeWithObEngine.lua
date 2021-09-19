@@ -14,7 +14,7 @@ function Local.Init(next_scene)
         height = 1,
         unit = obe.Transform.Units.ViewPercentage,
         color = "#2d132c",
-        layer = 2,
+        layer = 2
     };
 
     canvas:Text "madewithobengine" {
@@ -22,10 +22,7 @@ function Local.Init(next_scene)
         x = 0.65,
         y = 0.5,
         unit = obe.Transform.Units.ViewPercentage,
-        align = {
-            horizontal = "Center",
-            vertical = "Center"
-        },
+        align = {horizontal = "Center", vertical = "Center"},
         text = "Made with ÖbEngine",
         layer = 1,
         size = 110
@@ -35,10 +32,7 @@ function Local.Init(next_scene)
         x = 0.99,
         y = 1,
         unit = obe.Transform.Units.ViewPercentage,
-        align = {
-            horizontal = "Right",
-            vertical = "Bottom"
-        },
+        align = {horizontal = "Right", vertical = "Bottom"},
         text = obe.Config.OBENGINE_VERSION,
         layer = 1,
         size = 64
@@ -47,8 +41,16 @@ function Local.Init(next_scene)
     chrono = obe.Time.Chronometer();
     chrono:start();
     fade:fadeIn();
-    Engine.Events:schedule():after(3):run(function() fade:fadeOut() end);
-    Engine.Events:schedule():after(4):run(function() Engine.Scene:loadFromFile(Object.next_scene) end);
+    Engine.Events:schedule():after(3):run(
+        function()
+            fade:fadeOut()
+        end
+    );
+    Engine.Events:schedule():after(4):run(
+        function()
+            Engine.Scene:loadFromFile(Object.next_scene)
+        end
+    );
 end
 
 function Event.Game.Render()
