@@ -1,5 +1,4 @@
 function Local.Init(login, sprite, blinkingSize, placeholder)
-
     if login == nil then
         login = Nicknames[math.random(1, #Nicknames)];
     end

@@ -154,7 +154,7 @@ function Event.Game.Update(event)
         );
 
         if max_dist_before_collision ~= offset then
-            print("Target hit", offset, max_dist_before_collision);
+            print("Target hit", target.Collider:getCentroid());
             print("Positions center", center.x, center.y);
             print("Old position", oldCenter.x, oldCenter.y);
             target:hit()

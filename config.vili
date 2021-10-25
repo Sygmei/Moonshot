@@ -1,6 +1,6 @@
 Framerate:
     framerateLimit: true
-    framerateTarget: 60
+    framerateTarget: 165
     vsync: true
 
 Window:

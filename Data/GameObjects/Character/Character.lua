@@ -5,7 +5,8 @@ Character = {};
 function Object:DiscoverLadders()
     print("Discovering Ladders");
     Object.ladders = {};
-    for k, v in pairs(Engine.Scene:getAllColliders()) do
+    local colliders = Engine.Scene:getAllColliders();
+    for k, v in pairs(colliders) do
         if v:doesHaveTag(obe.Collision.ColliderTagType.Tag, "Ladder") then
             table.insert(Object.ladders, v);
         end
@@ -16,7 +17,6 @@ function Object:DiscoverSpikes()
     print("Discovering Spikes");
     Object.spikes = {};
     local colliders = Engine.Scene:getAllColliders();
-    print("Collider size", #colliders);
     for k, v in pairs(colliders) do
         if v:doesHaveTag(obe.Collision.ColliderTagType.Tag, "Spike") then
             table.insert(Object.spikes, v);
@@ -27,7 +27,8 @@ end
 function Object:DiscoverLoots()
     print("Discovering Loots");
     Object.loots = {};
-    for k, v in pairs(Engine.Scene:getAllGameObjects("Loot")) do
+    local loots = Engine.Scene:getAllGameObjects("Loot");
+    for k, v in pairs(loots) do
         table.insert(Object.loots, v);
     end
 end
@@ -35,7 +36,8 @@ end
 function Object:DiscoverCheckpoints()
     print("Discovering Checkpoints");
     Object.checkpoints = {};
-    for k, v in pairs(Engine.Scene:getAllGameObjects("Checkpoint")) do
+    local checkpoints = Engine.Scene:getAllGameObjects("Checkpoint");
+    for k, v in pairs(checkpoints) do
         table.insert(Object.checkpoints, v);
     end
 end
@@ -43,7 +45,8 @@ end
 function Object:DiscoverJumpers()
     print("Discovering Jumpers");
     Object.jumpers = {};
-    for k, v in pairs(Engine.Scene:getAllGameObjects("Jumper")) do
+    local jumpers = Engine.Scene:getAllGameObjects("Jumper");
+    for k, v in pairs(jumpers) do
         table.insert(Object.jumpers, v);
     end
 end
@@ -62,7 +65,8 @@ end
 function Object:DiscoverRestrictions()
     print("Discovering Restrictions");
     Object.restrictions = {};
-    for k, v in pairs(Engine.Scene:getAllGameObjects("RestrictionZone")) do
+    local restrictions = Engine.Scene:getAllGameObjects("RestrictionZone");
+    for k, v in pairs(restrictions) do
         table.insert(Object.restrictions, v);
     end
 end
@@ -70,7 +74,8 @@ end
 function Object:DiscoverSlowmotions()
     print("Discovering Slowmotions");
     Object.slowmotions = {};
-    for k, v in pairs(Engine.Scene:getAllGameObjects("SlowMotionZone")) do
+    local slowmotions = Engine.Scene:getAllGameObjects("SlowMotionZone");
+    for k, v in pairs(slowmotions) do
         table.insert(Object.slowmotions, v);
     end
 end
@@ -321,7 +326,7 @@ function Event.Actions.Shoot()
     local pos = This.Collider:getCentroid()
     local relPos = pos - Engine.Scene:getCamera():getPosition():to(obe.Transform.Units.SceneUnits);
     local vecInit = obe.Transform.UnitVector(cursorPos.x - relPos.x, cursorPos.y - relPos.y);
-    Engine.Scene:createGameObject("Projectile") {
+    local new_projectile = Engine.Scene:createGameObject("Projectile") {
         x = pos.x,
         y = pos.y,
         vecInit = vecInit,

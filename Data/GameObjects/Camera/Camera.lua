@@ -81,7 +81,6 @@ local CAMERA_SPEED = 4;
 local CAMERA_SMOOTH = true;
 
 function Event.Game.Update(event)
-    print("Frame time / rate", event.dt, 1 / event.dt);
     if Object.actor == nil then
         return;
     end

@@ -9,3 +9,4 @@ mounts:
   scenes: "root://Scenes"
   scripts: "root://Scripts"
   sprites: "root://Sprites"
+  objects: "root://Data/GameObjects"

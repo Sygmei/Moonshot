@@ -1,2 +1,5 @@
 debug.log
 moonshot.tiled-session
+
+# IDE
+.vscode/
